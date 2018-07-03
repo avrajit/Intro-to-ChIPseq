@@ -4,8 +4,8 @@
 
 | Time            |  Topic  | Instructor |
 |:------------------------:|:------------------------------------------------:|:--------:|
-|9:00 - 9:40 | [Workshop Introduction](../../lectures/Intro_to_workshop.pdf) | Radhika |
-|9:40 - 10:30 | [Introduction to the Shell](../../lessons/01_the_filesystem.md) | Radhika |
+|9:00 - 9:40 | [Workshop Introduction](https://hbctraining.github.io/Intro-to-Shell/lectures/Intro_to_workshop.pdf) | Radhika |
+|9:40 - 10:30 | [Introduction to the Shell](https://hbctraining.github.io/Intro-to-Shell/lessons/01_the_filesystem.md) | Radhika |
 |10:30 - 10:45 | Break | |
 |10:45 - 11:35 | [Introduction to the Shell (cont.)](https://hbctraining.github.io/Intro-to-Shell/lessons/01_the_filesystem.html) | Meeta |
 |11:35 - 12:15 | [Searching and Redirection](https://hbctraining.github.io/Intro-to-Shell/lessons/02_searching_files.html) | Mary |
@@ -29,15 +29,15 @@
 |13:15 - 14:00 | [Alignment and filtering of reads](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/03_align_and_filtering.html) | Mary |
 |14:00 - 15:20 | [Automating generation of alignment files](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/04_automation.html) | Radhika |
 |15:20 - 15:35 | Break | |
-|15:35 - 15:5 | [ChIP-seq File Formats](https://hbctraining.github.io/Intro-to-ChIPseq/lectures/Workflows_and_fileformats.pdf) | Radhika |
-|15:55 - 17:00 | [Peak calling with MACS2](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/05_peak_calling_macs.html) | Meeta |
+|15:35 - 15:5 | [ChIP-seq File Formats](../lectures/Workflows_and_fileformats.pdf) | Radhika |
+|15:55 - 17:00 | [Peak calling with MACS2](../../lessons/05_peak_calling_macs.md) | Meeta |
 
 
 ## Day 3
 
 | Time            |  Topic  | Instructor |
 |:------------------------:|:----------:|:--------:|
-|9:00 - 9:20 | [Peak calling with MACS2 (contd.)](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/05_peak_calling_macs.html) | Meeta |
+|9:00 - 9:20 | [Peak calling with MACS2 (contd.)](../lessons/05_peak_calling_macs.md) | Meeta |
 |9:20 - 10:20 | [Assessing ChIP quality using cross correlation](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/06_QC_cross_correlation.html) | Mary |
 |10:20 - 10:35 | Break | |
 |10:35 - 11:35| [Assessing Peak calls and ChIP quality using ChIPQC](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/07_QC_quality_metrics.html) | Meeta |
