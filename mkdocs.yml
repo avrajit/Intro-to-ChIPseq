@@ -1,0 +1,12 @@
+site_name: Introduction to ChIP-seq
+pages:
+    - Home: index.md
+    - Schedule: schedule.md
+theme: 
+    name: 'material'
+    include_sidebar: false
+    palette:
+        primary: 'White'
+        accent: 'Light Green'
+    logo: 'images/dna-sequence-1600x800.jpg'
+extra_css: [extra.css]

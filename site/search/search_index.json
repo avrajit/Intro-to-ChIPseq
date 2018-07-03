@@ -1,0 +1,29 @@
+{
+    "docs": [
+        {
+            "location": "/", 
+            "text": "Introduction to ChIP-seq using high performance computing\n\n\n\n\n\n\n\n\nAudience\n\n\nComputational Skills\n\n\nPrerequisites\n\n\nDuration\n\n\n\n\n\n\n\n\n\n\nBiologists\n\n\nBeginner/Intermediate\n\n\nNone\n\n\n3-day workshop (~19.5 hours of trainer-led time)\n\n\n\n\n\n\n\n\nDescription\n\n\nThis repository has teaching materials for a 3-day Introduction to ChIP-sequencing data analysis workshop. This workshop focuses on teaching basic computational skills to enable the effective use of an high-performance computing environment to implement a ChIP-seq data analysis workflow. It includes an introduction to shell (bash) and shell scripting. In addition to running the ChIP-seq workflow from FASTQ files to peak calls and nearest gene annotations, the workshop covers best practice guidlelines for ChIP-seq experimental design and data organization/management and quality control.\n\n\n\n\nThese materials were developed for a trainer-led workshop, but are also amenable to self-guided learning.\n\n\n\n\nLearning Objectives\n\n\n\n\nUnderstand the necessity for, and use of, the command line interface (bash) and HPC for analyzing high-throughput sequencing data.\n\n\nUnderstand best practices for designing a ChIP-seq experiment and analysis the resulting data.\n\n\n\n\nLessons\n\n\nClick here\n for links to lessons and the suggested schedule\n\n\n\n\nThese materials have been developed by members of the teaching team at the \nHarvard Chan Bioinformatics Core (HBC)\n. These are open access materials distributed under the terms of the \nCreative Commons Attribution license\n (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.\n\n\n\n\nSome materials used in these lessons were derived from work that is Copyright \u00a9 Data Carpentry (http://datacarpentry.org/). \nAll Data Carpentry instructional material is made available under the \nCreative Commons Attribution license\n (CC BY 4.0).", 
+            "title": "Home"
+        }, 
+        {
+            "location": "/#introduction-to-chip-seq-using-high-performance-computing", 
+            "text": "Audience  Computational Skills  Prerequisites  Duration      Biologists  Beginner/Intermediate  None  3-day workshop (~19.5 hours of trainer-led time)", 
+            "title": "Introduction to ChIP-seq using high performance computing"
+        }, 
+        {
+            "location": "/#description", 
+            "text": "This repository has teaching materials for a 3-day Introduction to ChIP-sequencing data analysis workshop. This workshop focuses on teaching basic computational skills to enable the effective use of an high-performance computing environment to implement a ChIP-seq data analysis workflow. It includes an introduction to shell (bash) and shell scripting. In addition to running the ChIP-seq workflow from FASTQ files to peak calls and nearest gene annotations, the workshop covers best practice guidlelines for ChIP-seq experimental design and data organization/management and quality control.   These materials were developed for a trainer-led workshop, but are also amenable to self-guided learning.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/#learning-objectives", 
+            "text": "Understand the necessity for, and use of, the command line interface (bash) and HPC for analyzing high-throughput sequencing data.  Understand best practices for designing a ChIP-seq experiment and analysis the resulting data.", 
+            "title": "Learning Objectives"
+        }, 
+        {
+            "location": "/#lessons", 
+            "text": "Click here  for links to lessons and the suggested schedule   These materials have been developed by members of the teaching team at the  Harvard Chan Bioinformatics Core (HBC) . These are open access materials distributed under the terms of the  Creative Commons Attribution license  (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.   Some materials used in these lessons were derived from work that is Copyright \u00a9 Data Carpentry (http://datacarpentry.org/). \nAll Data Carpentry instructional material is made available under the  Creative Commons Attribution license  (CC BY 4.0).", 
+            "title": "Lessons"
+        }
+    ]
+}
