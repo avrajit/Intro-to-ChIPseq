@@ -288,6 +288,26 @@
   
 </li>
         
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#assessing-quality-with-fastqc" title="Assessing quality with FastQC" class="md-nav__link">
+    Assessing quality with FastQC
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#run-fastqc" title="Run FastQC" class="md-nav__link">
+    Run FastQC
+  </a>
+  
+</li>
+        
           <li class="md-nav__item">
   <a href="#fastqc-results" title="FastQC Results" class="md-nav__link">
     FastQC Results
@@ -504,6 +524,26 @@
   
 </li>
         
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#assessing-quality-with-fastqc" title="Assessing quality with FastQC" class="md-nav__link">
+    Assessing quality with FastQC
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#run-fastqc" title="Run FastQC" class="md-nav__link">
+    Run FastQC
+  </a>
+  
+</li>
+        
           <li class="md-nav__item">
   <a href="#fastqc-results" title="FastQC Results" class="md-nav__link">
     FastQC Results
@@ -619,52 +659,74 @@ CACTTGTAAGGGCAGGCCCCCTTCACCCTCCCGCTCCTGGGGGANNNNNNNNNNANNNCGAGGCCCTGGGGTAGAGGGNN
 </code></pre>
 
 <p>As mentioned previously, line 4 has characters encoding the quality of each nucleotide in the read. The legend below provides the mapping of quality scores (Phred-33) to the quality encoding characters. <em>Different quality encoding scales exist (differing by offset in the ASCII table), but note the most commonly used one is fastqsanger.</em></p>
-<p>```
- Quality encoding: !"#$%&amp;'()*+,-./0123456789:;&lt;=&gt;?@ABCDEFGHI
+<pre><code> Quality encoding: !&quot;#$%&amp;'()*+,-./0123456789:;&lt;=&gt;?@ABCDEFGHI
                    |         |         |         |         |
-    Quality score: 0........10........20........30........40                                </p>
-<pre><code>
-Using the quality encoding character legend, the first nucelotide in the read (C) is called with a quality score of 31 and our Ns are called with a score of 2. **As you can tell by now, this is a bad read.** 
+    Quality score: 0........10........20........30........40                                
+</code></pre>
 
-Each quality score represents the probability that the corresponding nucleotide call is incorrect. This quality score is logarithmically based and is calculated as:
+<p>Using the quality encoding character legend, the first nucelotide in the read (C) is called with a quality score of 31 and our Ns are called with a score of 2. <strong>As you can tell by now, this is a bad read.</strong> </p>
+<p>Each quality score represents the probability that the corresponding nucleotide call is incorrect. This quality score is logarithmically based and is calculated as:</p>
+<pre><code>Q = -10 x log10(P), where P is the probability that a base call is erroneous
+</code></pre>
 
-    Q = -10 x log10(P), where P is the probability that a base call is erroneous
-
-These probabaility values are the results from the base calling algorithm and dependent on how much signal was captured for the base incorporation. The score values can be interpreted as follows:
-
-|Phred Quality Score |Probability of incorrect base call |Base call accuracy|
-|:-------------------|:---------------------------------:|-----------------:|
-|10 |1 in 10 |  90%|
-|20 |1 in 100|  99%|
-|30 |1 in 1000| 99.9%|
-|40 |1 in 10,000|   99.99%|
-|50 |1 in 100,000|  99.999%|
-|60 |1 in 1,000,000|    99.9999%|
-
-Therefore, for the first nucleotide in the read (C), there is less than a 1 in 1000 chance that the base was called incorrectly. Whereas, for the the end of the read there is greater than 50% probabaility that the base is called incorrectly.
-
-## Assessing quality with FastQC
-
-Now we understand what information is stored in a FASTQ file, the next step is to examine quality metrics for our data.
-
-[FastQC](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/) provides a simple way to do some quality control checks on raw sequence data coming from high throughput sequencing pipelines. It provides a modular set of analyses which you can use to give a quick impression of whether your data has any problems of which you should be aware before doing any further analysis.
-
-The main functions of FastQC are:
-
-* Import of data from BAM, SAM or FastQ files (any variant)
-* Providing a quick overview to tell you in which areas there may be problems
-* Summary graphs and tables to quickly assess your data
-* Export of results to an HTML based permanent report
-* Offline operation to allow automated generation of reports without running the interactive application
-
-### Run FastQC  
-
-Let's run FastQC on all of our files. 
-
-Change directories to the `raw_data` folder and check the contents
-
-```bash
-$ cd ~/chipseq/raw_data 
+<p>These probabaility values are the results from the base calling algorithm and dependent on how much signal was captured for the base incorporation. The score values can be interpreted as follows:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Phred Quality Score</th>
+<th align="center">Probability of incorrect base call</th>
+<th align="right">Base call accuracy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">10</td>
+<td align="center">1 in 10</td>
+<td align="right">90%</td>
+</tr>
+<tr>
+<td align="left">20</td>
+<td align="center">1 in 100</td>
+<td align="right">99%</td>
+</tr>
+<tr>
+<td align="left">30</td>
+<td align="center">1 in 1000</td>
+<td align="right">99.9%</td>
+</tr>
+<tr>
+<td align="left">40</td>
+<td align="center">1 in 10,000</td>
+<td align="right">99.99%</td>
+</tr>
+<tr>
+<td align="left">50</td>
+<td align="center">1 in 100,000</td>
+<td align="right">99.999%</td>
+</tr>
+<tr>
+<td align="left">60</td>
+<td align="center">1 in 1,000,000</td>
+<td align="right">99.9999%</td>
+</tr>
+</tbody>
+</table>
+<p>Therefore, for the first nucleotide in the read (C), there is less than a 1 in 1000 chance that the base was called incorrectly. Whereas, for the the end of the read there is greater than 50% probabaility that the base is called incorrectly.</p>
+<h2 id="assessing-quality-with-fastqc">Assessing quality with FastQC</h2>
+<p>Now we understand what information is stored in a FASTQ file, the next step is to examine quality metrics for our data.</p>
+<p><a href="http://www.bioinformatics.babraham.ac.uk/projects/fastqc/">FastQC</a> provides a simple way to do some quality control checks on raw sequence data coming from high throughput sequencing pipelines. It provides a modular set of analyses which you can use to give a quick impression of whether your data has any problems of which you should be aware before doing any further analysis.</p>
+<p>The main functions of FastQC are:</p>
+<ul>
+<li>Import of data from BAM, SAM or FastQ files (any variant)</li>
+<li>Providing a quick overview to tell you in which areas there may be problems</li>
+<li>Summary graphs and tables to quickly assess your data</li>
+<li>Export of results to an HTML based permanent report</li>
+<li>Offline operation to allow automated generation of reports without running the interactive application</li>
+</ul>
+<h3 id="run-fastqc">Run FastQC</h3>
+<p>Let's run FastQC on all of our files. </p>
+<p>Change directories to the <code>raw_data</code> folder and check the contents</p>
+<pre><code class="bash">$ cd ~/chipseq/raw_data 
 
 $ ls -l
 </code></pre>
@@ -724,7 +786,7 @@ $ fastqc -t 6 *.fastq  #note the extra parameter we specified for 6 threads
 <p>The .html files contain the final reports generated by fastqc, let's take a closer look at them. Transfer the file for <code>H1hesc_Input_Rep1_chr12.fastq</code> over to your laptop via <em>FileZilla</em>.</p>
 <h5 id="filezilla-step-1">Filezilla - Step 1</h5>
 <p>Open <em>FileZilla</em>, and click on the File tab. Choose 'Site Manager'.</p>
-<p><img src="FileZilla_step1](../img/Filezilla_step1.png" width="500"></p>
+<p><img src="../img/Filezilla_step1.png" width="500"></p>
 <h5 id="filezilla-step-2">Filezilla - Step 2</h5>
 <p>Within the 'Site Manager' window, do the following: </p>
 <ol>
