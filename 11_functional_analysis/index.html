@@ -1,0 +1,582 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+        <meta name="author" content=""">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-0.17.4, mkdocs-material-2.9.2">
+    
+    
+      
+        <title>"ChIP-Seq Functional Analysis"</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.ba0fd1a6.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.6079476c.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="">
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+      <link rel="stylesheet" href="../extra.css">
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="white" data-md-color-accent="light-green">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#learning-objectives" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href=".." title="Introduction to ChIP-seq" class="md-header-nav__button md-logo">
+          
+            <img src="../images/dna-sequence-1600x800.jpg" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                Introduction to ChIP-seq
+              </span>
+              <span class="md-header-nav__topic">
+                Functional analysis
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <span class="md-nav__button md-logo">
+      
+        <img src="../images/dna-sequence-1600x800.jpg" width="48" height="48">
+      
+    </span>
+    Introduction to ChIP-seq
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../schedule/" title="Class schedule" class="md-nav__link">
+      Class schedule
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      Lessons
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Lessons
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../01_Intro_chipseq_data_organization/" title="Project Organization and Best Practices in Data Management" class="md-nav__link">
+      Project Organization and Best Practices in Data Management
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../02_QC_FASTQC/" title="Sequencing data QC using FastQC" class="md-nav__link">
+      Sequencing data QC using FastQC
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../03_align_and_filtering/" title="Alignment and filtering of reads" class="md-nav__link">
+      Alignment and filtering of reads
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../04_automation/" title="Automating generation of alignment files" class="md-nav__link">
+      Automating generation of alignment files
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../05_peak_calling_macs/" title="Peak calling with MACS2" class="md-nav__link">
+      Peak calling with MACS2
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../06_QC_cross_correlation/" title="Assessing ChIP quality using cross correlation" class="md-nav__link">
+      Assessing ChIP quality using cross correlation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../07_QC_quality_metrics/" title="Assessing Peak calls and ChIP quality using ChIPQC" class="md-nav__link">
+      Assessing Peak calls and ChIP quality using ChIPQC
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../08_handling-replicates/" title="Handling Replicates with Bedtools or IDR" class="md-nav__link">
+      Handling Replicates with Bedtools or IDR
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../09_data_visualization/" title="Visualization and exploration of ChIP-seq data" class="md-nav__link">
+      Visualization and exploration of ChIP-seq data
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../10_qualitative_assessment_IGV/" title="Qualitative assessment using IGV" class="md-nav__link">
+      Qualitative assessment using IGV
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+    <a href="./" title="Functional analysis" class="md-nav__link md-nav__link--active">
+      Functional analysis
+    </a>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <p>Approximate time: 40 minutes</p>
+<h2 id="learning-objectives">Learning Objectives</h2>
+<ul>
+<li>to explore web-based tools for motif discovery and functional enrichment analysis of the peak calls</li>
+</ul>
+<h1 id="web-based-functional-analysis-and-motif-discovery">Web-based functional analysis and motif discovery</h1>
+<p><img src="../img/chip_workflow_march2018_step5.png" width="700"></p>
+<p>We have identified regions of the genome where the number of reads aligning to these areas differ significantly between our Nanog IP samples and the input controls. These enriched regions represent the likely locations of where Nanog binds to the genome. </p>
+<p>After identifying likely binding sites, downstream analyses will often include: </p>
+<ol>
+<li>determining the binding motifs for the protein of interest</li>
+<li>identifying which genes are associated with the binding sites and exploring whether there is any associated enrichment of processes, pathways, or networks.</li>
+</ol>
+<p>We will explore a few useful web-based tools for performing these analyses using our Nanog peak calls.</p>
+<p>Since the motif and functional enrichment analyses are unlikely to give reliable results using only the 32.8 Mb of reads mapping to chr12,  we will use the <strong>full set of peak calls output from the IDR analysis</strong>.</p>
+<h2 id="set-up">Set-up</h2>
+<p>Start an interactive session:</p>
+<pre><code class="bash">$ srun --pty -p short -t 0-12:00 --mem 8G --reservation=HBC bash    
+</code></pre>
+
+<p>Extract the first three columns of the IDR peak calls for the whole genome of Nanog:</p>
+<pre><code class="bash">$ cd ~/chipseq/results
+
+$ mkdir functional_analysis
+
+$ cd functional_analysis
+
+$ cp /n/groups/hbctraining/chip-seq/full-dataset/idr/*.bed .
+
+$ cut -f 1,2,3 Nanog-idr-merged.bed  &gt; Nanog-idr-merged-great.bed
+</code></pre>
+
+<p>To extract the sequences corresponding to the peak coordinates for motif discovery, we will use the <a href="http://bedtools.readthedocs.org/en/latest/content/bedtools-suite.html">bedtools</a> suite of tools. The <code>getfasta</code> command extracts sequences from a reference fasta file for each of the coordinates defined in a BED/GFF/VCF file. </p>
+<pre><code class="bash">$ module load gcc/6.2.0 bedtools/2.26.0
+
+$ bedtools getfasta -fi \
+/n/groups/shared_databases/igenome/Homo_sapiens/UCSC/hg19/Sequence/WholeGenomeFasta/genome.fa \
+-bed Nanog-idr-merged-great.bed \
+-fo Nanog-idr-merged-dreme.fasta
+</code></pre>
+
+<p>Using <code>scp</code> or <strong>FileZilla</strong> on your local computer, transfer <code>Nanog-idr-merged-great.bed</code> and <code>Nanog-idr-merged-dreme.fasta</code> to your Desktop.</p>
+<pre><code class="bash">$ scp username@transfer.rc.hms.harvard.edu:~/chipseq/results/functional_analysis/*merged-* Desktop/
+</code></pre>
+
+<h2 id="functional-enrichment-analysis">Functional enrichment analysis</h2>
+<p>We will use <a href="http://bejerano.stanford.edu/great/public/html/index.php">GREAT</a> to perform the functional enrichment analysis. GREAT takes a list of regions, associates them with nearby genes, and then analyzes the gene annotations to assign biological meaning to the data.</p>
+<p>Open <a href="http://bejerano.stanford.edu/great/public/html/index.php">GREAT</a>, and perform the following steps:</p>
+<ol>
+<li>
+<p>Choose the <code>Nanog-idr-merged-great.bed</code> file and use the <code>Whole genome</code> for Background regions. Click Submit. GREAT provides the output in HTML format organized by section.</p>
+</li>
+<li>
+<p>Expand the <code>Job Description</code> section. Click on <code>View all genomic region-gene associations</code>. Note that each associated gene is listed with location from the transcription start site as shown below:</p>
+<p><img alt="tss_gene" src="../../img/tss_distance.png" /></p>
+<p>Within this section, you have the option to download the list of genes associated with Nanog binding sites or you could view all of the binding sites as a custom track in the UCSC Genome Browser.</p>
+</li>
+<li>
+<p>Scroll down to the <code>Region-Gene Association Graphs</code>. Observe the graphics displaying the summary of the number of genes associated with each binding site and the binding site locations relative to the transcription start sites of the associated genes</p>
+<p><img alt="tss_graphs" src="../../img/great_region_assoc.png" /></p>
+</li>
+<li>
+<p>Below the <code>Region-Gene Association Graphs</code> are the <code>Global Controls</code>, where you can select the annotation information to display. Keep the default settings and scroll down to view the information displayed. </p>
+</li>
+<li>
+<p>Explore the GO Biological Process terms associated with the Nanog binding sites. Notice the options available at the top of the tables for exporting data, changing settings, and visualization.</p>
+<p><img alt="annot" src="../../img/great_annot.png" /></p>
+<p>GREAT calculates two measures of statistical enrichment: "one using a binomial test over genomic regions and one using a hypergeometric test over genes" [<a href="http://bejerano.stanford.edu/help/display/GREAT/Statistics">2</a>]. Each test has its own biases, which are compensated for by the other test. </p>
+</li>
+<li>
+<p>Click on the term <code>negative regulation of stem cell differentiation</code>:</p>
+<p><img alt="select_go" src="../../img/great_selection_go.png" /></p>
+<p>Note that summary information about the binding sites of Nanog for genes associated with this GO term are displayed.</p>
+</li>
+<li>
+<p>Expand the section for <code>This term's genomic region-gene association tables</code>. Notice that you have the option to download the gene table.</p>
+</li>
+<li>
+<p>Click on <code>NOTCH1</code>. Explore the binding regions directly within the UCSC Genome Browser.</p>
+</li>
+</ol>
+<h2 id="motif-discovery">Motif discovery</h2>
+<p><img alt="MEME_suite" src="../../img/meme_suite.png" /></p>
+<p>To identify over-represented motifs, we will use DREME from the MEME suite of sequence analysis tools. <a href="http://meme-suite.org/tools/dreme">DREME</a> is a motif discovery algorithm designed to find short, core DNA-binding motifs of eukaryotic transcription factors and is optimized to handle large ChIP-seq data sets.</p>
+<p>DREME is tailored to eukaryotic data by focusing on short motifs (4 to 8 nucleotides) encompassing the DNA-binding region of most eukaryotic monomeric transcription factors. Therefore it may miss wider motifs due to binding by large transcription factor complexes.</p>
+<h3 id="dreme">DREME</h3>
+<p>Visit the <a href="http://meme-suite.org/tools/dreme">DREME website</a> and perform the following steps:</p>
+<ol>
+<li>Select the downloaded <code>Nanog-idr-merged-dreme.fasta</code> as input to DREME</li>
+<li>Enter your email address so that DREME can email you once the analysis is complete</li>
+<li>Enter a job description so you will recognize which job has been emailed to you and then start the search</li>
+</ol>
+<p>You will be shown a status page describing the inputs and the selected parameters, as well as links to the results at the top of the screen.</p>
+<p><img alt="results_page" src="../../img/dreme_processing.png" /></p>
+<p>This may take some time depending on the server load and the size of the file. While you wait, take a look at the <a href="http://meme-suite.org/info/status?service=DREME&amp;id=appDREME_4.12.015217291184881905688999">expected results</a>.</p>
+<p><img alt="dreme_output" src="../../img/dreme_output.png" /></p>
+<p>DREME’s HTML output provides a list of Discovered Motifs displayed as sequence logos (in the forward and reverse complement (RC) orientations), along with an E-value for the significance of the result. </p>
+<p>Motifs are significantly enriched if the fraction of sequences in the input dataset matching the motif is significantly different from the fraction of sequences in the background dataset using Fisher’s Exact Test. Typically, background dataset is either similar data from a different ChIP-Seq experiment or shuffled versions of the input dataset [<a href="http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3106199/">1</a>].</p>
+<p>Clicking on <code>More</code> displays the number of times the motif was identified in the Nanog dataset (positives) versus the background dataset (negatives). The <code>Details</code> section displays the number of sequences matching the motif, while <code>Enriched Matching Words</code> displays the number of times the motif was identified in the sequences (more than one word possible per sequence).</p>
+<h3 id="tomtom">Tomtom</h3>
+<p>To determine if the identified motifs resemble the binding motifs of known transcription factors, we can submit the motifs to Tomtom, which searches a database of known motifs to find potential matches and provides a statistical measure of motif-motif similarity. We can run the analysis individually for each motif prediction by performing the following steps:</p>
+<ol>
+<li>Click on the <code>Submit / Download</code> button for motif <code>ATGYWAAT</code> in the DREME output</li>
+<li>A dialog box will appear asking you to Select what you want to do or Select a program. Select <code>Tomtom</code> and click <code>Submit</code>. This takes you to the input page. </li>
+<li>Tomtom allows you to select the database you wish to search against. Keep the default parameters selected, but keep in mind that there are other options when performing your own analyses.</li>
+<li>Enter your email address and job description and start the search.</li>
+</ol>
+<p>You will be shown a status page describing the inputs and the selected parameters, as well as a link to the results at the top of the screen. Clicking the link displays an output page that is continually updated until the analysis has completed. Like DREME, Tomtom will also email you the results.</p>
+<p>The HTML output for Tomtom shows a list of possible motif matches for the DREME motif prediction generated from your Nanog regions. Clicking on the match name shows you an alignment of the predicted motif versus the match.</p>
+<p><img alt="tomtom_output" src="../../img/tomtom_output.png" /></p>
+<p>The short genomic regions identified by ChIP-seq are generally very highly enriched with binding sites of the ChIP-ed transcription factor, but Nanog is not in the databases of known motifs. The regions identified also tend to be enriched for the binding sites of other transcription factors that bind <em>cooperatively or competitively</em> with the ChIP-ed transcription factor.</p>
+<p>If we compare our results with what is known about our transcription factor, Nanog, we find that Sox2 and Pou5f1 (Oct4) co-regulate many of the same genes as Nanog. </p>
+<p><img alt="nanog" src="../../img/nanog_binding.png" /><a href="https://www.qiagen.com/us/shop/genes-and-pathways/pathway-details/?pwid=309">https://www.qiagen.com/us/shop/genes-and-pathways/pathway-details/?pwid=309</a></p>
+<h3 id="meme-chip">MEME-ChIP</h3>
+<p>MEME-ChIP is a tool that is part of the MEME Suite that is specifically designed for ChIP-Seq analyses. MEME-ChIP performs DREME and Tomtom analysis in addition to using tools to assess which motifs are most centrally enriched (motifs should be centered in the peaks) and to combine related motifs into similarity clusters. It is able to identify longer motifs &lt; 30bp, but takes much longer to run.</p>
+<blockquote>
+<p><img alt="" src="../../img/meme_chip_output.png" /></p>
+</blockquote>
+<h2 id="other-functional-analysis-tools">Other functional analysis tools</h2>
+<p>ChIPseeker is an R package for annotating ChIP-seq data analysis. It supports annotating ChIP peaks and provides functions to visualize ChIP peaks coverage over chromosomes and profiles of peaks binding to TSS regions. Comparison of ChIP peak profiles and annotation are also supported, and can be useful to compare biological replicates. Several visualization functions are implemented to visualize the peak annotation and statistical tools for enrichment analyses of functional annotations. If interested, there are <a href="https://hbctraining.github.io/Intro-to-ChIPseq/lessons/ChIPseeker_functional_analysis.html">materials</a> available for using ChIPseeker for functional analysis.</p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../10_qualitative_assessment_IGV/" title="Qualitative assessment using IGV" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Qualitative assessment using IGV
+              </span>
+            </div>
+          </a>
+        
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.a59e2a89.js"></script>
+      
+      <script>app.initialize({version:"0.17.4",url:{base:".."}})</script>
+      
+    
+    
+      
+    
+  </body>
+</html>

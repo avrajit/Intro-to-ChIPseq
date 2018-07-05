@@ -1,0 +1,829 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+        <meta name="author" content=""">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-0.17.4, mkdocs-material-2.9.2">
+    
+    
+      
+        <title>"FastQC for quality assessment"</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.ba0fd1a6.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.6079476c.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="">
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+      <link rel="stylesheet" href="../extra.css">
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="white" data-md-color-accent="light-green">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#learning-objectives" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href=".." title="Introduction to ChIP-seq" class="md-header-nav__button md-logo">
+          
+            <img src="../images/dna-sequence-1600x800.jpg" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                Introduction to ChIP-seq
+              </span>
+              <span class="md-header-nav__topic">
+                Sequencing data QC using FastQC
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <span class="md-nav__button md-logo">
+      
+        <img src="../images/dna-sequence-1600x800.jpg" width="48" height="48">
+      
+    </span>
+    Introduction to ChIP-seq
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../schedule/" title="Class schedule" class="md-nav__link">
+      Class schedule
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      Lessons
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Lessons
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../01_Intro_chipseq_data_organization/" title="Project Organization and Best Practices in Data Management" class="md-nav__link">
+      Project Organization and Best Practices in Data Management
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Sequencing data QC using FastQC
+      </label>
+    
+    <a href="./" title="Sequencing data QC using FastQC" class="md-nav__link md-nav__link--active">
+      Sequencing data QC using FastQC
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" title="Learning Objectives" class="md-nav__link">
+    Learning Objectives
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quality-control-of-sequence-reads" title="Quality control of sequence reads" class="md-nav__link">
+    Quality control of sequence reads
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#understanding-the-illumina-sequencing-technology" title="Understanding the Illumina sequencing technology" class="md-nav__link">
+    Understanding the Illumina sequencing technology
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unmapped-read-data-fastq" title="Unmapped read data (FASTQ)" class="md-nav__link">
+    Unmapped read data (FASTQ)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fastqc-results" title="FastQC Results" class="md-nav__link">
+    FastQC Results
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#html-reports" title="HTML reports" class="md-nav__link">
+    HTML reports
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#filezilla-step-1" title="Filezilla - Step 1" class="md-nav__link">
+    Filezilla - Step 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filezilla-step-2" title="Filezilla - Step 2" class="md-nav__link">
+    Filezilla - Step 2
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../03_align_and_filtering/" title="Alignment and filtering of reads" class="md-nav__link">
+      Alignment and filtering of reads
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../04_automation/" title="Automating generation of alignment files" class="md-nav__link">
+      Automating generation of alignment files
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../05_peak_calling_macs/" title="Peak calling with MACS2" class="md-nav__link">
+      Peak calling with MACS2
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../06_QC_cross_correlation/" title="Assessing ChIP quality using cross correlation" class="md-nav__link">
+      Assessing ChIP quality using cross correlation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../07_QC_quality_metrics/" title="Assessing Peak calls and ChIP quality using ChIPQC" class="md-nav__link">
+      Assessing Peak calls and ChIP quality using ChIPQC
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../08_handling-replicates/" title="Handling Replicates with Bedtools or IDR" class="md-nav__link">
+      Handling Replicates with Bedtools or IDR
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../09_data_visualization/" title="Visualization and exploration of ChIP-seq data" class="md-nav__link">
+      Visualization and exploration of ChIP-seq data
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../10_qualitative_assessment_IGV/" title="Qualitative assessment using IGV" class="md-nav__link">
+      Qualitative assessment using IGV
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../11_functional_analysis/" title="Functional analysis" class="md-nav__link">
+      Functional analysis
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" title="Learning Objectives" class="md-nav__link">
+    Learning Objectives
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quality-control-of-sequence-reads" title="Quality control of sequence reads" class="md-nav__link">
+    Quality control of sequence reads
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#understanding-the-illumina-sequencing-technology" title="Understanding the Illumina sequencing technology" class="md-nav__link">
+    Understanding the Illumina sequencing technology
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unmapped-read-data-fastq" title="Unmapped read data (FASTQ)" class="md-nav__link">
+    Unmapped read data (FASTQ)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fastqc-results" title="FastQC Results" class="md-nav__link">
+    FastQC Results
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#html-reports" title="HTML reports" class="md-nav__link">
+    HTML reports
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#filezilla-step-1" title="Filezilla - Step 1" class="md-nav__link">
+    Filezilla - Step 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filezilla-step-2" title="Filezilla - Step 2" class="md-nav__link">
+    Filezilla - Step 2
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  <h1>Sequencing data QC using FastQC</h1>
+                
+                <p>Contributors: Mary Piper, Radhika Khetani</p>
+<p>Approximate time: 55 minutes</p>
+<h2 id="learning-objectives">Learning Objectives</h2>
+<ul>
+<li>Become familiar with the Illumina sequencing technology</li>
+<li>Understanding how to use modules in the cluster environment</li>
+<li>Evaluate the quality of your sequencing data using FastQC</li>
+</ul>
+<h2 id="quality-control-of-sequence-reads">Quality control of sequence reads</h2>
+<p><img src="../img/chip_workflow_march2018_step1.png" width="700"></p>
+<p>Now that we have our files and directory structure, we are ready to begin our ChIP-Seq analysis. For any NGS analysis method, our first step in the workflow is to explore the quality of our reads prior to aligning them to the reference genome and proceeding with downstream analyses. </p>
+<h3 id="understanding-the-illumina-sequencing-technology">Understanding the Illumina sequencing technology</h3>
+<p>Before we can assess the quality of our reads, it would be helpful to know a little bit about how these reads were generated. Since our data was sequenced on an Illumina sequencer we will introduce you to their Sequencng by Synthesis methodology, however keep in mind there are other technologies and the way reads are generated will vary (as will the associated biases observed in your data). </p>
+<p><img src="../img/sbs_illumina.png" width="700"></p>
+<p>An <strong>animation of the Sequencing by Synthesis is most helpful</strong> (rather than reading through lines of text), and so we would like you to take five minutes and watch <a href="https://www.youtube.com/watch?v=fCd6B5HRaZ8&amp;t=3s">this YouTube video</a> from Illumina.</p>
+<h3 id="unmapped-read-data-fastq">Unmapped read data (FASTQ)</h3>
+<p>The <a href="https://en.wikipedia.org/wiki/FASTQ_format">FASTQ</a> file format is the defacto file format for sequence reads generated from next-generation sequencing technologies. This file format evolved from FASTA in that it contains sequence data, but also contains quality information. Similar to FASTA, the FASTQ file begins with a header line. The difference is that the FASTQ header is denoted by a <code>@</code> character. For a single record (sequence read) there are four lines, each of which are described below:</p>
+<table>
+<thead>
+<tr>
+<th>Line</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Always begins with '@' and then information about the read</td>
+</tr>
+<tr>
+<td>2</td>
+<td>The actual DNA sequence</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Always begins with a '+' and sometimes the same info in line 1</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Has a string of characters which represent the quality scores; must have same number of characters as line 2</td>
+</tr>
+</tbody>
+</table>
+<p>Let's use the following read as an example:</p>
+<pre><code>@HWI-ST330:304:H045HADXX:1:1101:1111:61397
+CACTTGTAAGGGCAGGCCCCCTTCACCCTCCCGCTCCTGGGGGANNNNNNNNNNANNNCGAGGCCCTGGGGTAGAGGGNNNNNNNNNNNNNNGATCTTGG
++
+@?@DDDDDDHHH?GH:?FCBGGB@C?DBEGIIIIAEF;FCGGI#########################################################
+</code></pre>
+
+<p>As mentioned previously, line 4 has characters encoding the quality of each nucleotide in the read. The legend below provides the mapping of quality scores (Phred-33) to the quality encoding characters. <em>Different quality encoding scales exist (differing by offset in the ASCII table), but note the most commonly used one is fastqsanger.</em></p>
+<p>```
+ Quality encoding: !"#$%&amp;'()*+,-./0123456789:;&lt;=&gt;?@ABCDEFGHI
+                   |         |         |         |         |
+    Quality score: 0........10........20........30........40                                </p>
+<pre><code>
+Using the quality encoding character legend, the first nucelotide in the read (C) is called with a quality score of 31 and our Ns are called with a score of 2. **As you can tell by now, this is a bad read.** 
+
+Each quality score represents the probability that the corresponding nucleotide call is incorrect. This quality score is logarithmically based and is calculated as:
+
+    Q = -10 x log10(P), where P is the probability that a base call is erroneous
+
+These probabaility values are the results from the base calling algorithm and dependent on how much signal was captured for the base incorporation. The score values can be interpreted as follows:
+
+|Phred Quality Score |Probability of incorrect base call |Base call accuracy|
+|:-------------------|:---------------------------------:|-----------------:|
+|10 |1 in 10 |  90%|
+|20 |1 in 100|  99%|
+|30 |1 in 1000| 99.9%|
+|40 |1 in 10,000|   99.99%|
+|50 |1 in 100,000|  99.999%|
+|60 |1 in 1,000,000|    99.9999%|
+
+Therefore, for the first nucleotide in the read (C), there is less than a 1 in 1000 chance that the base was called incorrectly. Whereas, for the the end of the read there is greater than 50% probabaility that the base is called incorrectly.
+
+## Assessing quality with FastQC
+
+Now we understand what information is stored in a FASTQ file, the next step is to examine quality metrics for our data.
+
+[FastQC](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/) provides a simple way to do some quality control checks on raw sequence data coming from high throughput sequencing pipelines. It provides a modular set of analyses which you can use to give a quick impression of whether your data has any problems of which you should be aware before doing any further analysis.
+
+The main functions of FastQC are:
+
+* Import of data from BAM, SAM or FastQ files (any variant)
+* Providing a quick overview to tell you in which areas there may be problems
+* Summary graphs and tables to quickly assess your data
+* Export of results to an HTML based permanent report
+* Offline operation to allow automated generation of reports without running the interactive application
+
+### Run FastQC  
+
+Let's run FastQC on all of our files. 
+
+Change directories to the `raw_data` folder and check the contents
+
+```bash
+$ cd ~/chipseq/raw_data 
+
+$ ls -l
+</code></pre>
+
+<p>Before we start using any software, we either have to check if it's available on the cluster, and if it is we have to load it into our environment (or <code>$PATH</code>). On the O2 cluster, we can check for, and load packages (or modules) using the <strong>LMOD</strong> system. </p>
+<p>If we check which modules we currently have loaded, we should not see FastQC.</p>
+<pre><code class="bash">$ module list
+</code></pre>
+
+<p>This is because the FastQC program is not in our $PATH (i.e. its not in a directory that unix will automatically check to run commands/programs).</p>
+<pre><code class="bash">$ echo $PATH
+</code></pre>
+
+<p>To find the FastQC module to load we need to search the versions available:</p>
+<pre><code class="bash">$ module spider
+</code></pre>
+
+<p>Then we can load the FastQC module:</p>
+<pre><code class="bash">$ module load fastqc/0.11.3
+</code></pre>
+
+<p>Once a module for a tool is loaded, you have essentially made it directly available to you like any other basic UNIX command.</p>
+<pre><code class="bash">$ module list
+
+$ echo $PATH
+</code></pre>
+
+<p>FastQC will accept multiple file names as input, so we can use the <code>*.fq</code> wildcard.</p>
+<pre><code class="bash">$ fastqc *.fastq
+</code></pre>
+
+<p><em>Did you notice how each file was processed serially? How do we speed this up?</em></p>
+<p>Exit the interactive session and once you are on a "login node," start a new interactive session with 6 cores. Now we can use the multi-threading functionality of FastQC to speed this up by running 6 jobs at once, one job for one file.</p>
+<pre><code class="bash">$ exit  #exit the current interactive session
+
+$ srun --pty -n 6 -p short -t 0-12:00 --mem 8G --reservation=HBC /bin/bash  #start a new one with 6 cpus (-n 6) and 8G RAM (--mem 8G)
+
+$ module load fastqc/0.11.3  #reload the module for the new session
+
+$ cd ~/chipseq/raw_data
+
+$ fastqc -t 6 *.fastq  #note the extra parameter we specified for 6 threads
+</code></pre>
+
+<p>How did I know about the -t argument for FastQC?</p>
+<pre><code class="bash">$ fastqc --help
+</code></pre>
+
+<p>Now, move all of the <code>fastqc</code> files to the <code>results/fastqc</code> directory:</p>
+<pre><code class="bash">$ mv *fastqc* ../results/fastqc/
+</code></pre>
+
+<h3 id="fastqc-results">FastQC Results</h3>
+<p>Let's take a closer look at the files generated by FastQC:</p>
+<p><code>$ ls -lh ../results/fastqc/</code></p>
+<h4 id="html-reports">HTML reports</h4>
+<p>The .html files contain the final reports generated by fastqc, let's take a closer look at them. Transfer the file for <code>H1hesc_Input_Rep1_chr12.fastq</code> over to your laptop via <em>FileZilla</em>.</p>
+<h5 id="filezilla-step-1">Filezilla - Step 1</h5>
+<p>Open <em>FileZilla</em>, and click on the File tab. Choose 'Site Manager'.</p>
+<p><img alt="FileZilla_step1" src="../../img/Filezilla_step1.png" /></p>
+<h5 id="filezilla-step-2">Filezilla - Step 2</h5>
+<p>Within the 'Site Manager' window, do the following: </p>
+<ol>
+<li>Click on 'New Site', and name it something intuitive (e.g. O2)</li>
+<li>Host: transfer.rc.hms.harvard.edu </li>
+<li>Protocol: SFTP - SSH File Transfer Protocol</li>
+<li>Logon Type: Normal</li>
+<li>User: training_account</li>
+<li>Password: password for training_account</li>
+<li>Click 'Connect'</li>
+</ol>
+<p><img src="../img/Filezilla_step2.png" width="500">  </p>
+<p>The <strong>"Per base sequence quality"</strong> plot is the most important analysis module in FastQC for ChIP-Seq; it provides the distribution of quality scores across all bases at each position in the reads. This information can help determine whether there were any problems at the sequencing facility during the sequencing of your data. Generally, we expect a decrease in quality towards the ends of the reads, but we shouldn't see any quality drops at the beginning or in the middle of the reads.</p>
+<p><img alt="FastQC_seq_qual" src="../../img/FastQC_seq_qual.png" /></p>
+<p>Based on the sequence quality plot, we see the majority of the reads have high quality, but the whiskers drop into the poor quality regions, indicating that a significant number of reads have low quality bases across the reads. The poor quality reads in the middle of the sequence would be concerning if this was our dataset, and we would probably want to contact the sequencing facility. However, this dataset was created artifically, so does not indicate a problem at the sequencing facility. Trimming could be performed from both ends of the sequences, or we can use an alignment tool that can ignore these poor quality bases at the ends of reads (soft clip). </p>
+<p>This is the main plot explored for ChIP-seq, but if you would like to go through the remaining plots/metrics, FastQC has a really well documented <a href="http://www.bioinformatics.babraham.ac.uk/projects/fastqc/">manual page</a> with <a href="http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/">more details</a> about all the plots in the report. We recommend looking at <a href="http://bioinfo-core.org/index.php/9th_Discussion-28_October_2010">this post</a> for more information on what bad plots look like and what they mean for your data. Also, FastQC is just an indicator of what's going on with your data, don't take the "PASS"es and "FAIL"s too seriously.</p>
+<blockquote>
+<p><strong>We also have a <a href="https://github.com/hbctraining/Intro-to-rnaseq-hpc-O2/raw/master/lectures/error_profiles_mm.pdf">slidedeck</a> of error profiles for Illumina sequencing, where we discuss specific FASTQC plots and possible sources of these types of errors.</strong></p>
+</blockquote>
+<hr />
+<p><em>This lesson has been developed by members of the teaching team at the <a href="http://bioinformatics.sph.harvard.edu/">Harvard Chan Bioinformatics Core (HBC)</a>. These are open access materials distributed under the terms of the <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution license</a> (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.</em></p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../01_Intro_chipseq_data_organization/" title="Project Organization and Best Practices in Data Management" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Project Organization and Best Practices in Data Management
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../03_align_and_filtering/" title="Alignment and filtering of reads" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Alignment and filtering of reads
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.a59e2a89.js"></script>
+      
+      <script>app.initialize({version:"0.17.4",url:{base:".."}})</script>
+      
+    
+    
+      
+    
+  </body>
+</html>

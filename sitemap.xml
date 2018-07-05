@@ -2,12 +2,67 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
      <loc>/</loc>
-     <lastmod>2018-07-03</lastmod>
+     <lastmod>2018-07-05</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>/schedule/</loc>
-     <lastmod>2018-07-03</lastmod>
+     <lastmod>2018-07-05</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>/01_Intro_chipseq_data_organization/</loc>
+     <lastmod>2018-07-05</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>/02_QC_FASTQC/</loc>
+     <lastmod>2018-07-05</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>/03_align_and_filtering/</loc>
+     <lastmod>2018-07-05</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>/04_automation/</loc>
+     <lastmod>2018-07-05</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>/05_peak_calling_macs/</loc>
+     <lastmod>2018-07-05</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>/06_QC_cross_correlation/</loc>
+     <lastmod>2018-07-05</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>/07_QC_quality_metrics/</loc>
+     <lastmod>2018-07-05</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>/08_handling-replicates/</loc>
+     <lastmod>2018-07-05</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>/09_data_visualization/</loc>
+     <lastmod>2018-07-05</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>/10_qualitative_assessment_IGV/</loc>
+     <lastmod>2018-07-05</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>/11_functional_analysis/</loc>
+     <lastmod>2018-07-05</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>
