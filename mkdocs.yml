@@ -1,10 +1,22 @@
 site_name: Introduction to ChIP-seq
 pages:
     - Home: index.md
-    - Schedule: schedule.md
+    - Class schedule: schedule.md
+    - Lessons:
+        - Project Organization and Best Practices in Data Management: 01_Intro_chipseq_data_organization.md
+        - Sequencing data QC using FastQC: 02_QC_FASTQC.md
+        - Alignment and filtering of reads: 03_align_and_filtering.md
+        - Automating generation of alignment files: 04_automation.md
+        - Peak calling with MACS2: 05_peak_calling_macs.md
+        - Assessing ChIP quality using cross correlation: 06_QC_cross_correlation.md
+        - Assessing Peak calls and ChIP quality using ChIPQC: 07_QC_quality_metrics.md
+        - Handling Replicates with Bedtools or IDR: 08_handling-replicates.md
+        - Visualization and exploration of ChIP-seq data: 09_data_visualization.md
+        - Qualitative assessment using IGV: 10_qualitative_assessment_IGV.md
+        - Functional analysis: 11_functional_analysis.md
 theme: 
     name: 'material'
-    include_sidebar: false
+    custom_dir: custom_theme
     palette:
         primary: 'White'
         accent: 'Light Green'

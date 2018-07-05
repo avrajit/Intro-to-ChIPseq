@@ -22,7 +22,7 @@ Peak calling, the next step in our workflow, is a computational method used to i
 
 For ChIP-seq experiments, what we observe from the alignment files is a **strand asymmetry with read densities on the +/- strand, centered around the binding site**. The 5' ends of the selected fragments will form groups on the positive- and negative-strand. The distributions of these groups are then assessed using statistical measures and compared against background (input or mock IP samples) to determine if the site of enrichment is likely to be a real binding site.
 
-<img src="../img/chip-fragments.png" width="300" align="middle"></div>
+<img src="../img/chip-fragments.png" width="300" align="middle">
 
 There are various tools that are available for peak calling. One of the more commonly used pack callers is MACS2, and we will demonstrate it in this session. *Note that in this Session the term 'tag' and sequence 'read' are used interchangeably.*
 
