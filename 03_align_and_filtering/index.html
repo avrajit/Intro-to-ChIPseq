@@ -643,7 +643,7 @@ VN: program version
 </code></pre>
 
 <p>Following the header is the <strong>alignment section</strong>. Each line that follows corresponds to alignment information for a single read. Each alignment line has <strong>11 mandatory fields for essential mapping information</strong> and a variable number of other fields for aligner specific information. </p>
-<p><img alt="SAM1" src="../../img/sam_bam.png" /></p>
+<p><img src="../img/sam_bam.png" width="500"></p>
 <p>An example read mapping is displayed above. <em>Note that the example above spans two lines, but in the file it is a single line.</em> Let's go through the fields one at a time. First, you have the read name (<code>QNAME</code>), followed by a <code>FLAG</code> </p>
 <p>The <code>FLAG</code> value that is displayed can be translated into information about the mapping. </p>
 <table>
@@ -735,7 +735,7 @@ VN: program version
 </tbody>
 </table>
 <p>Now to the remaning fields in our SAM file:</p>
-<p><img alt="SAM1" src="../../img/sam_bam3.png" /></p>
+<p><img src="../img/sam_bam3.png" width="500"></p>
 <p>The next three fields are more pertinent to paired-end data. <code>MRNM</code> is the mate reference name. <code>MPOS</code> is the mate position (1-based, leftmost). <code>ISIZE</code> is the inferred insert size.</p>
 <p>Finally, you have the data from the original FASTQ file stored for each read. That is the raw sequence (<code>SEQ</code>) and the associated quality values for each position in the read (<code>QUAL</code>).</p>
 <p>Let;'s take a quick peek at our SAM file that we just generated. Since it is just a text file, we can browse through it using <code>less</code>:</p>
