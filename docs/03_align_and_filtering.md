@@ -99,7 +99,7 @@ VN: program version
 
 Following the header is the **alignment section**. Each line that follows corresponds to alignment information for a single read. Each alignment line has **11 mandatory fields for essential mapping information** and a variable number of other fields for aligner specific information. 
 
-![SAM1](../img/sam_bam.png)
+<img src="../img/sam_bam.png" width="500">
 
 An example read mapping is displayed above. *Note that the example above spans two lines, but in the file it is a single line.* Let's go through the fields one at a time. First, you have the read name (`QNAME`), followed by a `FLAG` 
 
@@ -139,7 +139,7 @@ Moving along the fields of the SAM file, we then have `RNAME` which is the refer
 
 Now to the remaning fields in our SAM file:
 
-![SAM1](../img/sam_bam3.png)
+<img src="../img/sam_bam3.png" width="500">
 
 The next three fields are more pertinent to paired-end data. `MRNM` is the mate reference name. `MPOS` is the mate position (1-based, leftmost). `ISIZE` is the inferred insert size.
 
