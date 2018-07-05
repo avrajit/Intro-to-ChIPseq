@@ -5,15 +5,15 @@
 | Time            |  Topic  | Instructor |
 |:------------------------:|:------------------------------------------------:|:--------:|
 |9:00 - 9:40 | [Workshop Introduction](https://rkhetani.github.io/Intro-to-Shell/lectures/Intro_to_workshop.pdf) | Radhika |
-|9:40 - 10:30 | [Introduction to the Shell](https://rkhetani.github.io/Intro-to-Shell/lessons/01_the_filesystem.html) | Radhika |
+|9:40 - 10:30 | [Introduction to the Shell](https://rkhetani.github.io/Intro-to-Shell/01_the_filesystem.md) | Radhika |
 |10:30 - 10:45 | Break | |
-|10:45 - 11:35 | [Introduction to the Shell (cont.)](https://rkhetani.github.io/Intro-to-Shell/lessons/01_the_filesystem.html) | Meeta |
-|11:35 - 12:15 | [Searching and Redirection](https://rkhetani.github.io/Intro-to-Shell/lessons/02_searching_files.html) | Mary |
+|10:45 - 11:35 | [Introduction to the Shell (cont.)](https://rkhetani.github.io/Intro-to-Shell/01_the_filesystem.md) | Meeta |
+|11:35 - 12:15 | [Searching and Redirection](https://rkhetani.github.io/Intro-to-Shell/02_searching_files.md) | Mary |
 |12:15 - 13:15 | Lunch | |
-|13:15 - 13:45 | [Introduction to the Vim Text Editor](https://rkhetani.github.io/Intro-to-Shell/lessons/03_vim.html) | Radhika |
-|13:45 - 15:00 | [Loops and Shell Scripts](https://rkhetani.github.io/Intro-to-Shell/lessons/04_loops_and_scripts.html) | Meeta |
+|13:15 - 13:45 | [Introduction to the Vim Text Editor](https://rkhetani.github.io/Intro-to-Shell/03_vim.md) | Radhika |
+|13:45 - 15:00 | [Loops and Shell Scripts](https://rkhetani.github.io/Intro-to-Shell/04_loops_and_scripts.md) | Meeta |
 |15:00 - 15:15 | Break | |
-|15:15 - 15:45 | [Permissions and Environment Variables](https://rkhetani.github.io/Intro-to-Shell/lessons/05_permissions_and_environment_variables.html) | Mary |
+|15:15 - 15:45 | [Permissions and Environment Variables](https://rkhetani.github.io/Intro-to-Shell/05_permissions_and_environment_variables.html) | Mary |
 |15:45 - 17:00 | [Introduction to High-Performance Computing for HMS-RC's O2](https://rkhetani.github.io/Intro-to-rnaseq-hpc-O2/lectures/HPC_intro_O2.pdf) | Radhika |
 
 ## Day 2
