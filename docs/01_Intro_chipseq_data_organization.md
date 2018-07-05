@@ -18,13 +18,13 @@ Chromatin immunoprecipitation (ChIP) experiments are performed to identify DNA b
 
 During this session we will be performing a complete workflow for ChIP-Seq analysis, starting with experimental design and generation of the raw sequencing reads and ending with functional enrichment analyses and motif discovery.
 
-<img src="chipseq_workflow_general](../img/chipseq_workflow_general.png" width="500">
+<img src="../img/chipseq_workflow_general.png" width="500">
 
 ## Experimental design and library preparation
 
 Several steps are involved in the library preparation of protein-bound DNA fragments for sequencing: 
 
-<img src="../img/chipseq_experimental_workflow.png" width="500">
+<img src="../img/chipseq_experimental_workflow.png" width="300">
 
 1. After the chromatin is isolated from the cell, proteins are cross-linked to the DNA
 2. The DNA is sheared into fragments (sonication)

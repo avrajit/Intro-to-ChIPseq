@@ -1,0 +1,1109 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+        <meta name="author" content=""">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-0.17.4, mkdocs-material-2.9.2">
+    
+    
+      
+        <title>"Handling replicates"</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.ba0fd1a6.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.6079476c.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="">
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+      <link rel="stylesheet" href="../extra.css">
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="white" data-md-color-accent="light-green">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#learning-objectives" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href=".." title="Introduction to ChIP-seq" class="md-header-nav__button md-logo">
+          
+            <img src="../images/dna-sequence-1600x800.jpg" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                Introduction to ChIP-seq
+              </span>
+              <span class="md-header-nav__topic">
+                Handling Replicates with Bedtools or IDR
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <span class="md-nav__button md-logo">
+      
+        <img src="../images/dna-sequence-1600x800.jpg" width="48" height="48">
+      
+    </span>
+    Introduction to ChIP-seq
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../schedule/" title="Class schedule" class="md-nav__link">
+      Class schedule
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      Lessons
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Lessons
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../01_Intro_chipseq_data_organization/" title="Project Organization and Best Practices in Data Management" class="md-nav__link">
+      Project Organization and Best Practices in Data Management
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../02_QC_FASTQC/" title="Sequencing data QC using FastQC" class="md-nav__link">
+      Sequencing data QC using FastQC
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../03_align_and_filtering/" title="Alignment and filtering of reads" class="md-nav__link">
+      Alignment and filtering of reads
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../04_automation/" title="Automating generation of alignment files" class="md-nav__link">
+      Automating generation of alignment files
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../05_peak_calling_macs/" title="Peak calling with MACS2" class="md-nav__link">
+      Peak calling with MACS2
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../06_QC_cross_correlation/" title="Assessing ChIP quality using cross correlation" class="md-nav__link">
+      Assessing ChIP quality using cross correlation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../07_QC_quality_metrics/" title="Assessing Peak calls and ChIP quality using ChIPQC" class="md-nav__link">
+      Assessing Peak calls and ChIP quality using ChIPQC
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Handling Replicates with Bedtools or IDR
+      </label>
+    
+    <a href="./" title="Handling Replicates with Bedtools or IDR" class="md-nav__link md-nav__link--active">
+      Handling Replicates with Bedtools or IDR
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" title="Learning Objectives" class="md-nav__link">
+    Learning Objectives
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#handling-replicates-in-chip-seq" title="Handling replicates in ChIP-Seq" class="md-nav__link">
+    Handling replicates in ChIP-Seq
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overlapping-peaks" title="Overlapping peaks" class="md-nav__link">
+    Overlapping peaks
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bedtools" title="bedtools" class="md-nav__link">
+    bedtools
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setting-up" title="Setting up" class="md-nav__link">
+    Setting up
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#finding-overlapping-peaks-between-replicates" title="Finding overlapping peaks between replicates" class="md-nav__link">
+    Finding overlapping peaks between replicates
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#irreproducibility-discovery-rate-idr" title="Irreproducibility Discovery Rate (IDR)" class="md-nav__link">
+    Irreproducibility Discovery Rate (IDR)
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-idr" title="Why IDR?" class="md-nav__link">
+    Why IDR?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#components-of-idr" title="Components of IDR" class="md-nav__link">
+    Components of IDR
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-idr-pipeline" title="The IDR pipeline" class="md-nav__link">
+    The IDR pipeline
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-idr" title="Running IDR" class="md-nav__link">
+    Running IDR
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setting-up_1" title="Setting up" class="md-nav__link">
+    Setting up
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#peak-consistency-between-true-replicates" title="Peak consistency between true replicates" class="md-nav__link">
+    Peak consistency between true replicates
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#output-files" title="Output files" class="md-nav__link">
+    Output files
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output-plots" title="Output plots" class="md-nav__link">
+    Output plots
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#peak-consistency-between-pooled-pseudoreplicates" title="Peak consistency between pooled pseudoreplicates" class="md-nav__link">
+    Peak consistency between pooled pseudoreplicates
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#self-consistency-analysis" title="Self-consistency analysis" class="md-nav__link">
+    Self-consistency analysis
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#threshold-guidelines" title="Threshold guidelines" class="md-nav__link">
+    Threshold guidelines
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../09_data_visualization/" title="Visualization and exploration of ChIP-seq data" class="md-nav__link">
+      Visualization and exploration of ChIP-seq data
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../10_qualitative_assessment_IGV/" title="Qualitative assessment using IGV" class="md-nav__link">
+      Qualitative assessment using IGV
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../11_functional_analysis/" title="Functional analysis" class="md-nav__link">
+      Functional analysis
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" title="Learning Objectives" class="md-nav__link">
+    Learning Objectives
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#handling-replicates-in-chip-seq" title="Handling replicates in ChIP-Seq" class="md-nav__link">
+    Handling replicates in ChIP-Seq
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overlapping-peaks" title="Overlapping peaks" class="md-nav__link">
+    Overlapping peaks
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bedtools" title="bedtools" class="md-nav__link">
+    bedtools
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setting-up" title="Setting up" class="md-nav__link">
+    Setting up
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#finding-overlapping-peaks-between-replicates" title="Finding overlapping peaks between replicates" class="md-nav__link">
+    Finding overlapping peaks between replicates
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#irreproducibility-discovery-rate-idr" title="Irreproducibility Discovery Rate (IDR)" class="md-nav__link">
+    Irreproducibility Discovery Rate (IDR)
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-idr" title="Why IDR?" class="md-nav__link">
+    Why IDR?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#components-of-idr" title="Components of IDR" class="md-nav__link">
+    Components of IDR
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-idr-pipeline" title="The IDR pipeline" class="md-nav__link">
+    The IDR pipeline
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-idr" title="Running IDR" class="md-nav__link">
+    Running IDR
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setting-up_1" title="Setting up" class="md-nav__link">
+    Setting up
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#peak-consistency-between-true-replicates" title="Peak consistency between true replicates" class="md-nav__link">
+    Peak consistency between true replicates
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#output-files" title="Output files" class="md-nav__link">
+    Output files
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output-plots" title="Output plots" class="md-nav__link">
+    Output plots
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#peak-consistency-between-pooled-pseudoreplicates" title="Peak consistency between pooled pseudoreplicates" class="md-nav__link">
+    Peak consistency between pooled pseudoreplicates
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#self-consistency-analysis" title="Self-consistency analysis" class="md-nav__link">
+    Self-consistency analysis
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#threshold-guidelines" title="Threshold guidelines" class="md-nav__link">
+    Threshold guidelines
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  <h1>Handling Replicates with Bedtools or IDR</h1>
+                
+                <p>Contributors: Meeta Mistry, Radhika Khetani </p>
+<p>Approximate time: 75 minutes</p>
+<h2 id="learning-objectives">Learning Objectives</h2>
+<ul>
+<li>Combining replicates using simple overlap with Bedtools</li>
+<li>Combining replicates to only get the highly reproducible peaks using the IDR method</li>
+</ul>
+<h2 id="handling-replicates-in-chip-seq">Handling replicates in ChIP-Seq</h2>
+<p>As with any high-throughput experiment, a single assay is often subject to a substantial amount of variability. Thus, it is highly recommended to setup your experimental design with a minimum of 2-3 biological replicates. Presumably, two replicates measuring the same underlying biology should have high consistency but that is not always the case. In order to evaluate consistency between replicates <strong>we require metrics that objectively assess the reproducibility of high-throughput assays</strong>.</p>
+<p><img src="../img/chip_workflow_june2017_step4.png" width="700"></p>
+<p>Since we have 2 replicates in this example, we want to consider only those peaks that are present in both replicates before we compare the peaks from the two transcription factors to one another.</p>
+<p><img src="../img/idr_samples.png" width="500"> </p>
+<p>Common methods for handling replicates includes taking overlapping peak calls across replicates and then assessing differences in binding regions. Additionally, there are more complex methods that employ statistical testing and evaluate the reproducibility between replicates. In this lesson we will cover both methods.</p>
+<blockquote>
+<p><strong>NOTE: A recent talk on "Accessing and using ENCODE data" <a href="https://hstalks.com/t/2679/accessing-and-using-encode-data/?biosci">linked here</a> where they talk about handling replicates and the similarities and differences when using an overlap versus IDR analysis.</strong></p>
+</blockquote>
+<h2 id="overlapping-peaks">Overlapping peaks</h2>
+<p>In this section, our goal is to determine what peaks are in common between the the two replicates for each factor (Nanog and Pou5f1). To perform this task we are going to use a suite of tools called <code>bedtools</code>.</p>
+<h3 id="bedtools"><code>bedtools</code></h3>
+<p>The idea is that genome coordinate information can be used to perform relatively simple arithmetic, like combining, subsetting, intersecting, etc., to obtain all sorts of information. <a href="http://bedtools.readthedocs.org/en/latest/index.html">bedtools</a> from <a href="http://quinlanlab.org/">Aaron Quinlan's group</a> at University of Utah is easy to use, and an extremely versatile tool that performs tasks of this nature. </p>
+<p><img src="../img/bedtools.png" width="700"></p>
+<p>As the name implies, this suite of tools works with <strong>Bed</strong> files, but it also works with other file formats that have genome coordinate information. </p>
+<p><img src="../img/bedtools-basic.png" width="600"></p>
+<blockquote>
+<p><strong>NOTE:</strong> When working with multiple files to perform arithmetic on genomic coordinates, it is essential that all files have coordinate information for the same exact version of the genome and the same coordinate system (0-based or 1-based)!</p>
+</blockquote>
+<h3 id="setting-up">Setting up</h3>
+<p>Let's start an interactive session and change directories and set up a space for the resulting overlaps. </p>
+<pre><code class="bash">$ srun --pty -p short -t 0-12:00 --mem 8G --reservation=HBC bash    
+
+$ cd ~/chipseq/results/
+
+$ mkdir bedtools
+</code></pre>
+
+<p>Load the modules for <code>bedtools</code> and <code>samtools</code>:</p>
+<pre><code class="bash">
+$ module load gcc/6.2.0 bedtools/2.26.0 samtools/1.3.1
+</code></pre>
+
+<h3 id="finding-overlapping-peaks-between-replicates">Finding overlapping peaks between replicates</h3>
+<p>The <code>bedtools intersect</code> command only reports back the peaks that are overlapping with respect to the file defined as <code>a</code> in the command.</p>
+<p><img src="../img/bedtools_intersect.png" width="600"></p>
+<p>To find out more information on the parameters available when intersecting, use the help flag:</p>
+<pre><code class="bash">$ bedtools intersect -h
+</code></pre>
+
+<p>The intersect tool evaluates A (file 1) and finds regions that overlap in B (file 2). We will add the <code>-wo</code> which indicates to write the original A (file 1) and B (file 2) entries plus the number of base pairs of overlap between the two features.</p>
+<p>Let's start with the Nanog replicates: </p>
+<pre><code class="bash">$ bedtools intersect \
+-a macs2/Nanog-rep1_peaks.narrowPeak \
+-b macs2/Nanog-rep2_peaks.narrowPeak \
+-wo &gt; bedtools/Nanog-overlaps.bed
+</code></pre>
+
+<p><strong>How many overlapping peaks did we get?</strong></p>
+<p>We'll do the same for the Pou5f1 replicates:</p>
+<pre><code class="bash">$ bedtools intersect \
+-a macs2/Pou5f1-rep1_peaks.narrowPeak \
+-b macs2/Pou5f1-rep2_peaks.narrowPeak \
+-wo &gt; bedtools/Pou5f1-overlaps.bed
+</code></pre>
+
+<p>Note that we are working with subsetted data and so our list of peaks for each replicate is small. Thus, the overlapping peak set will be small as we found with both Nanog and Pou5f1. What is interesting though, is that even though the individual peak lists are smaller for Pou5f1 samples, the overlapping replicates represent a higher proportion of overlap with respect to each replicate.</p>
+<blockquote>
+<p><strong><em>Historical Note</em>:</strong> A simpler heuristic for establishing reproducibility was previously used as a standard for depositing ENCODE data and was in effect when much of the currently available data was submitted. According to this standard, either 80% of the top 40% of the peaks identified from one replicate using an acceptable scoring method should overlap the list of peaks from the other replicate, OR peak lists scored using all available reads from each replicate should share more than 75% of regions in common. As with the current standards, this was developed based on experience with accumulated ENCODE ChIP-seq data, albeit with a much smaller sample size.</p>
+</blockquote>
+<h2 id="irreproducibility-discovery-rate-idr">Irreproducibility Discovery Rate (IDR)</h2>
+<p><a href="https://sites.google.com/site/anshulkundaje/projects/idr">IDR</a> is a framework developed by Qunhua Li and Peter Bickel's group that <strong>compares a pair of ranked lists of regions/peaks and assigns values that reflect its reproducibility.</strong> </p>
+<p><img src="../img/idr_figure.png"> </p>
+<p><em>"The basic idea is that if two replicates measure the same underlying biology, the most significant peaks, which are likely to be genuine signals, are expected to have high consistency between replicates, whereas peaks with low significance, which are more likely to be noise, are expected to have low consistency. If the consistency between a pair of rank lists (peaks) that contains both significant and insignificant findings is plotted, a transition in consistency is expected (Fig. 1C). This consistency transition provides an internal indicator of the change from signal to noise and suggests how many peaks have been reliably detected."</em> <a href="">https://ccg.vital-it.ch/var/sib_april15/cases/landt12/idr.html</a></p>
+<p>It is extensively used by the ENCODE and modENCODE projects and is part of their <a href="http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3431496/">ChIP-seq guidelines and standards</a>. It has been established for submission of ChIP-seq data sets and have been constructed based on the historical experiences of ENCODE ChIP-seq data production groups.</p>
+<h3 id="why-idr">Why IDR?</h3>
+<ul>
+<li>IDR avoids choices of initial cutoffs, which are not comparable for different callers </li>
+<li>IDR does not depend on arbitrary thresholds and so all regions/peaks are considered. </li>
+<li>It is based on ranks, so does not require the input signals to be calibrated or with a specific fixed scale (only order matters).</li>
+</ul>
+<h3 id="components-of-idr">Components of IDR</h3>
+<p>The IDR approach creates a curve, from which it then quantitatively assesses when the ﬁndings are no longer consistent across replicates. There are three main components: </p>
+<p>1) A <strong>correspondence curve</strong>: a graphical representation of matched peaks as you go down the ranked list. Qualitative, not adequate for selecting signals.</p>
+<p><img src="../img/corr_curve.png" width="400"> </p>
+<p>2) An <strong>inference procedure</strong>: summarizes the proportion of reproducible and irreproducible signals. Quantitative, using a copula mixture model.</p>
+<blockquote>
+<p>What proportion of identifications have a poor correspondence, i.e. falling into ”noise”?
+How consistent are the identifications before reaching breakdown?</p>
+</blockquote>
+<p>3) <strong>Irreproducible Discovery Rate (IDR)</strong>: Derive a significance value from the inference procedure (#2) in a fashion similar to FDR, and can be used to control the level of irreproducibility rate when selecting signals.
+i.e. 0.05 IDR means that peak has a 5% chance of being an irreproducible discovery</p>
+<h3 id="the-idr-pipeline">The IDR pipeline</h3>
+<p>There are three main steps to the IDR pipeline:</p>
+<ol>
+<li>Evaluate peak consistency between <strong>true replicates</strong></li>
+<li>Evaluate peak consistency between <strong>pooled pseudo-replicates</strong></li>
+<li>Evaluate <strong>self-consistency</strong> for each individual replicate</li>
+</ol>
+<p><img src="../img/idr_pipeline.png"> </p>
+<blockquote>
+<p>This figure is taken from the <a href="http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3431496/#box3">ENCODE ChIP-Seq Guidelines</a>.</p>
+</blockquote>
+<p><em>We will only be running Step 1 in this lesson, but will discuss steps 2 and 3 in a bit more detail.</em></p>
+<h2 id="running-idr">Running IDR</h2>
+<p>To run IDR <em>we should be using the full dataset</em>, and if you are interested the full BAM files can be downloaded from ENCODE, however for timeliness and consistency we will continue with our subsetted data for this lesson.</p>
+<p>To run IDR the recommendation is to <strong>run MACS2 less stringently</strong> to allow a larger set of peaks to be identified for each replicate. In addition the narrowPeak files have to be <strong>sorted by the <code>-log10(p-value)</code> column</strong>. We have already performed these 2 steps for the samples from both groups, and the commands we used for it as listed below. To reiterate, <em>you do NOT NEED TO RUN the following lines of code, we have already generated narrowPeak files for you!</em></p>
+<pre><code class="bash">###DO NOT RUN THIS###
+
+# Call peaks using a liberal p-value cutoff
+macs2 callpeak -t treatFile.bam -c inputFile.bam -f BAM -g 1.3e+8 -n macs/NAME_FOR_OUPUT -B -p 1e-3  2&gt; macs/NAME_FOR_OUTPUT_macs2.log
+
+#Sort peak by -log10(p-value)
+sort -k8,8nr NAME_OF_INPUT_peaks.narrowPeak &gt; macs/NAME_FOR_OUPUT_peaks.narrowPeak 
+</code></pre>
+
+<blockquote>
+<p>IDR will work with many different Peak callers, the following have been tested:</p>
+<ul>
+<li>SPP - Works out of the box</li>
+<li>MACS1.4 - DO NOT use with IDR</li>
+<li>MACS2 - Works well with IDR with occasional problems of too many ties in ranks for low quality ChIP-seq data.</li>
+<li>HOMER - developers have a detailed pipeline and code (in beta) for IDR analysis with HOMER at https://github.com/karmel/homer-idr </li>
+<li>PeakSeq - Run with modified PeakSeq parameters to obtain large number of peaks</li>
+<li>HotSpot, MOSAiCS, GPS/GEM, …</li>
+</ul>
+</blockquote>
+<h3 id="setting-up_1">Setting up</h3>
+<p>IDR is an open source tool available on <a href="https://github.com/nboley/idr">GitHub</a>. It is a Python program that has already been installed on O2. The first thing we need to do is load the module (and all dependency modules) to run IDR:</p>
+<pre><code class="bash">$ module load gcc/6.2.0  python/3.6.0
+$ module load idr/2.0.2
+</code></pre>
+
+<p>Now let's move into the <code>chipseq/results</code> directory and create a new directory for the results of our IDR analysis.</p>
+<pre><code class="bash">$ cd ~/chipseq/results
+$ mkdir IDR
+</code></pre>
+
+<p>Copy over the sorted narrowPeak files for each replicate for Nanog and Pou5f1:</p>
+<pre><code class="bash">$ cp /n/groups/hbctraining/chip-seq/idr/macs2/*sorted* IDR/
+</code></pre>
+
+<h3 id="peak-consistency-between-true-replicates">Peak consistency between true replicates</h3>
+<p>The first step is taking our replicates and evaluating how consistent they are with one another.</p>
+<p><img src="../img/idr-idr.png" width="500"></p>
+<p>To run IDR we use the <code>idr</code> command followed by any necessary parameters. To see what parameters we have available to us, we can use:</p>
+<pre><code class="bash">$ idr -h
+</code></pre>
+
+<p>For our run we will change only parameters associated with input and output files. We will also change the field on which we want to create ranks since the defaults are set for SPP peak calls. Parameters that pertain to the inference procedure are left as is, since the chosen defaults are what the developers believe are reasonable in the vast majority of cases. </p>
+<p>Move into the IDR directory:</p>
+<pre><code class="bash">$ cd IDR
+</code></pre>
+
+<p>Let's start with the Nanog replicates:</p>
+<pre><code class="bash">$ idr --samples Nanog_Rep1_sorted_peaks.narrowPeak Nanog_Rep2_sorted_peaks.narrowPeak \
+--input-file-type narrowPeak \
+--rank p.value \
+--output-file Nanog-idr \
+--plot \
+--log-output-file nanog.idr.log
+</code></pre>
+
+<p>And now with the Pou5f1 replicates:</p>
+<pre><code class="bash">$ idr --samples Pou5f1_Rep1_sorted_peaks.narrowPeak Pou5f1_Rep2_sorted_peaks.narrowPeak \
+--input-file-type narrowPeak \
+--rank p.value \
+--output-file Pou5f1-idr \
+--plot \
+--log-output-file pou5f1.idr.log
+</code></pre>
+
+<h4 id="output-files">Output files</h4>
+<p>The output file format mimics the input file type, with some additional fields. Note that the <strong>first 10 columns are a standard narrowPeak file</strong>, pertaining to the merged peak across the two replicates. </p>
+<p><strong>Column 5 contains the scaled IDR value, <code>min(int(log2(-125IDR), 1000)</code></strong> For example, peaks with an IDR of 0 have a score of 1000, peaks with an IDR of 0.05 have a score of int(-125log2(0.05)) = 540, and IDR of 1.0 has a score of 0.</p>
+<p><strong>Columns 11 and 12 correspond to the local and global IDR value, respectively.</strong> 
+<em> The <strong>global IDR</strong> is the value used to calculate the scaled IDR number in column 5, it <em>is analogous to a multiple hypothesis correction on a p-value to compute an FDR</em>. 
+</em> The <strong>local IDR</strong> is akin to the posterior probability of a peak belonging to the irreproducible noise component. You can read <a href="http://projecteuclid.org/euclid.aoas/1318514284">this paper</a> for more details. </p>
+<p><strong>Columns 13 through 16 correspond to Replicate 1 peak data</strong> and <strong>Columns 17 through 20 correspond to Replicate 2 peak data.</strong></p>
+<p>More detail on the output can be <a href="https://github.com/nboley/idr#output-file-format">found in the user manual</a>. Also, if you have any unanswered questions check out posts in the <a href="https://groups.google.com/forum/#!forum/idr-discuss">Google groups forum</a>. </p>
+<p>Let's take a look at our output files. <em>How many common peaks are considered for each TF?</em></p>
+<pre><code class="bash">$ wc -l *-idr
+</code></pre>
+
+<p>To find out how may of those shared regions have an IDR &lt; 0.05, we can take a look at the log files. Alternatively, since we requested all peaks and their IDR value as output we can also filter the file using an <code>awk</code> command.</p>
+<pre><code class="bash">$ awk '{if($5 &gt;= 540) print $0}' Nanog-idr | wc -l
+$ awk '{if($5 &gt;= 540) print $0}' Pou5f1-idr | wc -l
+</code></pre>
+
+<p><em>Which of the two TFs show better reproducibility between replicates? How does this compare to the <code>bedtools</code> overlaps?</em></p>
+<h4 id="output-plots">Output plots</h4>
+<p>There is a single image file output for each IDR analyses (<code>.png</code> files). Within each image you should see four plots. <strong>Since we are working with such a small subset of data, the plots are not as meaningful. Below we have provided the images generated for the full dataset for Pou5f1.</strong></p>
+<p><img src="../img/Pou5f1-idr.png" width="500"> </p>
+<p>The plot for each quadrant is described below:</p>
+<p><strong>Upper Left</strong>: Replicate 1 peak ranks versus Replicate 2 peak ranks - peaks that do not pass the specified idr threshold are colored red.</p>
+<p><strong>Upper Right</strong>: Replicate 1 log10 peak scores versus Replicate 2 log10 peak scores - peaks that do not pass the specified idr threshold are colored red.</p>
+<p><strong>Bottom Row</strong>: Peak rank versus IDR scores are plotted in black. The overlayed boxplots display the distribution of idr values in each 5% quantile. The IDR values are thresholded at the optimization precision - 1e-6 by default.</p>
+<h3 id="peak-consistency-between-pooled-pseudoreplicates">Peak consistency between pooled pseudoreplicates</h3>
+<p>Once you have IDR values for true replicates, you want to see how this compares to pooled replicates. This is a bit more involved, as it requires you to go back to the BAM files, merge the reads and randomly split them into two pseudo-replicates. If the original replicates are highly concordant, then shuffling and splitting them should result in pseudo-replicates that the reflect the originals. <strong>Therefore, if IDR analysis on the pooled pseudo-replicates results in a number of peaks that are similar (within a factor of 2) these are truly good replicates.</strong></p>
+<p><img src="../img/idr-pool.png" width="500"> </p>
+<p><em>We will not run this analysis, but have provided a bash script below if you wanted to take a stab at it.</em> To run this script you will need to:</p>
+<ul>
+<li>Provide BAM files and run it for each TF separately. These are located at <code>/groups/hbctraining/ngs-data-analysis-longcourse/chipseq/bowtie2</code>. Or you can point to the BAM files generated from Bowtie2 in the home directory.</li>
+<li>Be sure to also ask for enough memory in your <code>sbatch</code> command.</li>
+<li>Change the paths for output to the directories that are relevant to you</li>
+</ul>
+<blockquote>
+<p>NOTE 1: For the paths and directories we are using <code>/n/scratch2</code>. This script generates fairly large intermediate files which can quickly fill up your home directory. To avoid this please make use of the scratch space and once the analysis is complete move over only the relevant files.</p>
+<p>NOTE 2: To run the script below you will have to replace every instance of <code>mm573</code> with your account name.</p>
+</blockquote>
+<pre><code class="bash">#!/bin/sh
+
+# USAGE: sh pseudorep_idr.sh &lt;input BAM rep1&gt; &lt;chip BAM rep1&gt; &lt;input BAM rep2&gt; &lt;chip BAM rep2&gt; &lt;NAME for IDR output&gt;
+
+# This script will take the BAM files and perform the following steps: 
+    ## Merge BAMs for ChiP files,
+    ## Shuffle reads and split into two new BAM files (pseudo-replicates), 
+    ## Merge BAMs for Input files,
+    ## Shuffle reads and split into two new BAM files (pseudo-replicates), 
+    ## Call peaks on pseudo-replicates with MACS2 , 
+    ## Sort peaks called on pseudo-replicates,
+    ## IDR analysis using pseudo-replicate peak calls
+
+# Please use the following SLURM directives:
+    ## -t 0-12:00
+    ## -p short
+    ## --mem=40G
+
+date 
+
+inputFile1=`basename $1`
+treatFile1=`basename $2`
+inputFile2=`basename $3`
+treatFile2=`basename $4`
+EXPT=$5
+
+NAME1=`basename $treatFile1 _full.bam`
+NAME2=`basename $treatFile2 _full.bam`
+
+# Make Directories
+mkdir -p /n/scratch2/mm573/idr_chipseq/macs
+mkdir -p /n/scratch2/mm573/idr_chipseq/pooled_pseudoreps
+mkdir -p /n/scratch2/mm573/idr_chipseq/tmp
+
+# Set paths
+baseDir=/n/groups/hbctraining/ngs-data-analysis-longcourse/chipseq/bowtie2
+macsDir=/n/scratch2/mm573/idr_chipseq/macs
+outputDir=/n/scratch2/mm573/idr_chipseq/pooled_pseudoreps
+tmpDir=/n/scratch2/mm573/idr_chipseq/tmp
+
+#Merge treatment BAMS
+echo &quot;Merging BAM files for pseudoreplicates...&quot;
+samtools merge -u ${tmpDir}/${NAME1}_${NAME2}_merged.bam $baseDir/${treatFile1} $baseDir/${treatFile2}
+samtools view -H ${tmpDir}/${NAME1}_${NAME2}_merged.bam &gt; ${tmpDir}/${EXPT}_header.sam
+
+#Split merged treatments
+nlines=$(samtools view ${tmpDir}/${NAME1}_${NAME2}_merged.bam | wc -l ) # Number of reads in the BAM file
+nlines=$(( (nlines + 1) / 2 )) # half that number
+samtools view ${tmpDir}/${NAME1}_${NAME2}_merged.bam | shuf - | split -d -l ${nlines} - &quot;${tmpDir}/${EXPT}&quot; # This will shuffle the lines in the file and split it
+ into two SAM files
+cat ${tmpDir}/${EXPT}_header.sam ${tmpDir}/${EXPT}00 | samtools view -bS - &gt; ${outputDir}/${EXPT}00.bam
+cat ${tmpDir}/${EXPT}_header.sam ${tmpDir}/${EXPT}01 | samtools view -bS - &gt; ${outputDir}/${EXPT}01.bam
+
+#Merge input BAMS
+echo &quot;Merging input BAM files for pseudoreplicates...&quot;
+samtools merge -u ${tmpDir}/${NAME1}input_${NAME2}input_merged.bam $baseDir/${inputFile1} $baseDir/${inputFile2}
+
+#Split merged treatment BAM
+nlines=$(samtools view ${tmpDir}/${NAME1}input_${NAME2}input_merged.bam | wc -l ) # Number of reads in the BAM file
+nlines=$(( (nlines + 1) / 2 )) # half that number
+samtools view ${tmpDir}/${NAME1}input_${NAME2}input_merged.bam | shuf - | split -d -l ${nlines} - &quot;${tmpDir}/${EXPT}_input&quot; # This will shuffle the lines in the file and split in two 
+cat ${tmpDir}/${EXPT}_header.sam ${tmpDir}/${EXPT}_input00 | samtools view -bS - &gt; ${outputDir}/${EXPT}_input00.bam
+cat ${tmpDir}/${EXPT}_header.sam ${tmpDir}/${EXPT}_input01 | samtools view -bS - &gt; ${outputDir}/${EXPT}_input01.bam
+
+
+#Peak calling on pseudoreplicates
+echo &quot;Calling peaks for pseudoreplicate1 &quot;
+macs2 callpeak -t ${outputDir}/${EXPT}00.bam -c ${outputDir}/${EXPT}_input00.bam -f BAM -g hs -n $macsDir/${NAME1}_pr -B -p 1e-3  2&gt; $macsDir/${NAME1}_pr_macs2.log
+
+echo &quot;Calling peaks for pseudoreplicate2&quot;
+macs2 callpeak -t ${outputDir}/${EXPT}01.bam -c ${outputDir}/${EXPT}_input01.bam -f BAM -g hs -n $macsDir/${NAME2}_pr -B -p 1e-3  2&gt; $macsDir/${NAME2}_pr_macs2.log
+
+#Sort peak by -log10(p-value)
+echo &quot;Sorting peaks...&quot;
+sort -k8,8nr $macsDir/${NAME1}_pr_peaks.narrowPeak | head -n 100000 &gt; $macsDir/${NAME1}_pr_sorted.narrowPeak
+sort -k8,8nr $macsDir/${NAME2}_pr_peaks.narrowPeak | head -n 100000 &gt; $macsDir/${NAME2}_pr_sorted.narrowPeak
+
+#Independent replicate IDR
+echo &quot;Running IDR on pseudoreplicates...&quot;
+idr --samples $macsDir/${NAME1}_pr_sorted.narrowPeak $macsDir/${NAME2}_pr_sorted.narrowPeak --input-file-type narrowPeak --output-file ${EXPT}_pseudorep-idr --rank p.value --plot
+
+
+# Remove the tmp directory
+rm -r $tmpDir
+</code></pre>
+
+<h3 id="self-consistency-analysis">Self-consistency analysis</h3>
+<p>An <em>optional step</em> is to create pseudo-replicates for each replicate by randomly splitting the reads and running them through the same workflow. Again, <strong>if IDR analysis on the self-replicates for Replicate 1 results in a number of peaks that are similar (within a factor of 2) to self-replicates for Replicate 2 these are truly good replicates.</strong></p>
+<p><img src="../img/idr-rep1-rep2.png" width="500"></p>
+<h3 id="threshold-guidelines">Threshold guidelines</h3>
+<p>The user manual provides <a href="https://sites.google.com/site/anshulkundaje/projects/idr#TOC-GETTING-THRESHOLDS-TO-TRUNCATE-PEAK-LISTS">guidelines on IDR thresholds</a> which are recommended for the different types of IDR analyses. Depending on the organism you are studying and the total number of peaks you are starting with you will want to modify the thresholds accordingly.</p>
+<p>An example for our analysis is described below:</p>
+<ul>
+<li>If starting with &lt; 100K pre-IDR peaks for large genomes (human/mouse):
+For true replicates and self-consistency replicates an IDR threshold of 0.05 is more appropriate </li>
+<li>Use a tighter threshold for pooled-consistency since pooling and subsampling equalizes the pseudo-replicates in terms of data quality. Err on the side of caution and use more stringent IDR threshold of 0.01</li>
+</ul>
+<hr />
+<p><em>This lesson has been developed by members of the teaching team at the <a href="http://bioinformatics.sph.harvard.edu/">Harvard Chan Bioinformatics Core (HBC)</a>. These are open access materials distributed under the terms of the <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution license</a> (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.</em></p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../07_QC_quality_metrics/" title="Assessing Peak calls and ChIP quality using ChIPQC" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Assessing Peak calls and ChIP quality using ChIPQC
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../09_data_visualization/" title="Visualization and exploration of ChIP-seq data" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Visualization and exploration of ChIP-seq data
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.a59e2a89.js"></script>
+      
+      <script>app.initialize({version:"0.17.4",url:{base:".."}})</script>
+      
+    
+    
+      
+    
+  </body>
+</html>

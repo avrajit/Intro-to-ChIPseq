@@ -1,0 +1,889 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+        <meta name="author" content=""">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-0.17.4, mkdocs-material-2.9.2">
+    
+    
+      
+        <title>"Alignment and filtering"</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.ba0fd1a6.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.6079476c.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="">
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+      <link rel="stylesheet" href="../extra.css">
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="white" data-md-color-accent="light-green">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#learning-objectives" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href=".." title="Introduction to ChIP-seq" class="md-header-nav__button md-logo">
+          
+            <img src="../images/dna-sequence-1600x800.jpg" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                Introduction to ChIP-seq
+              </span>
+              <span class="md-header-nav__topic">
+                Alignment and filtering of reads
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <span class="md-nav__button md-logo">
+      
+        <img src="../images/dna-sequence-1600x800.jpg" width="48" height="48">
+      
+    </span>
+    Introduction to ChIP-seq
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../schedule/" title="Class schedule" class="md-nav__link">
+      Class schedule
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      Lessons
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Lessons
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../01_Intro_chipseq_data_organization/" title="Project Organization and Best Practices in Data Management" class="md-nav__link">
+      Project Organization and Best Practices in Data Management
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../02_QC_FASTQC/" title="Sequencing data QC using FastQC" class="md-nav__link">
+      Sequencing data QC using FastQC
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Alignment and filtering of reads
+      </label>
+    
+    <a href="./" title="Alignment and filtering of reads" class="md-nav__link md-nav__link--active">
+      Alignment and filtering of reads
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" title="Learning Objectives" class="md-nav__link">
+    Learning Objectives
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alignment-to-genome" title="Alignment to Genome" class="md-nav__link">
+    Alignment to Genome
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-bowtie2-index" title="Creating a Bowtie2 index" class="md-nav__link">
+    Creating a Bowtie2 index
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aligning-reads-to-the-genome-with-bowtie2" title="Aligning reads to the genome with Bowtie2" class="md-nav__link">
+    Aligning reads to the genome with Bowtie2
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alignment-file-format-sambam" title="Alignment file format: SAM/BAM" class="md-nav__link">
+    Alignment file format: SAM/BAM
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#filtering-reads" title="Filtering reads" class="md-nav__link">
+    Filtering reads
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-changing-file-format-from-sam-to-bam" title="1. Changing file format from SAM to BAM" class="md-nav__link">
+    1. Changing file format from SAM to BAM
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-sorting-bam-files-by-genomic-coordinates" title="2. Sorting BAM files by genomic coordinates" class="md-nav__link">
+    2. Sorting BAM files by genomic coordinates
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-filtering-uniquely-mapping-reads" title="3. Filtering uniquely mapping reads" class="md-nav__link">
+    3. Filtering uniquely mapping reads
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../04_automation/" title="Automating generation of alignment files" class="md-nav__link">
+      Automating generation of alignment files
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../05_peak_calling_macs/" title="Peak calling with MACS2" class="md-nav__link">
+      Peak calling with MACS2
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../06_QC_cross_correlation/" title="Assessing ChIP quality using cross correlation" class="md-nav__link">
+      Assessing ChIP quality using cross correlation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../07_QC_quality_metrics/" title="Assessing Peak calls and ChIP quality using ChIPQC" class="md-nav__link">
+      Assessing Peak calls and ChIP quality using ChIPQC
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../08_handling-replicates/" title="Handling Replicates with Bedtools or IDR" class="md-nav__link">
+      Handling Replicates with Bedtools or IDR
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../09_data_visualization/" title="Visualization and exploration of ChIP-seq data" class="md-nav__link">
+      Visualization and exploration of ChIP-seq data
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../10_qualitative_assessment_IGV/" title="Qualitative assessment using IGV" class="md-nav__link">
+      Qualitative assessment using IGV
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../11_functional_analysis/" title="Functional analysis" class="md-nav__link">
+      Functional analysis
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" title="Learning Objectives" class="md-nav__link">
+    Learning Objectives
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alignment-to-genome" title="Alignment to Genome" class="md-nav__link">
+    Alignment to Genome
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-bowtie2-index" title="Creating a Bowtie2 index" class="md-nav__link">
+    Creating a Bowtie2 index
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aligning-reads-to-the-genome-with-bowtie2" title="Aligning reads to the genome with Bowtie2" class="md-nav__link">
+    Aligning reads to the genome with Bowtie2
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alignment-file-format-sambam" title="Alignment file format: SAM/BAM" class="md-nav__link">
+    Alignment file format: SAM/BAM
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#filtering-reads" title="Filtering reads" class="md-nav__link">
+    Filtering reads
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-changing-file-format-from-sam-to-bam" title="1. Changing file format from SAM to BAM" class="md-nav__link">
+    1. Changing file format from SAM to BAM
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-sorting-bam-files-by-genomic-coordinates" title="2. Sorting BAM files by genomic coordinates" class="md-nav__link">
+    2. Sorting BAM files by genomic coordinates
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-filtering-uniquely-mapping-reads" title="3. Filtering uniquely mapping reads" class="md-nav__link">
+    3. Filtering uniquely mapping reads
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  <h1>Alignment and filtering of reads</h1>
+                
+                <p>Contributors: Mary Piper, Radhika Khetani, Meeta Mistry</p>
+<p>Approximate time: 45 minutes</p>
+<h2 id="learning-objectives">Learning Objectives</h2>
+<ul>
+<li>Perform alignment of reads to the genome using Bowtie2</li>
+<li>Examining a SAM file and understanding the information stored in it</li>
+<li>Filtering aligned reads to keep only uniquely mapped ones</li>
+</ul>
+<h2 id="alignment-to-genome">Alignment to Genome</h2>
+<p>Now that we have assessed the quality of our sequence data, we are ready to align the reads to the reference genome. <a href="http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml">Bowtie2</a> is a fast and accurate alignment tool that indexes the genome with an FM Index based on the Burrows-Wheeler Transform method to keep memory requirements low for the alignment process. <em>Bowtie2</em> supports gapped, local and paired-end alignment modes and works best for reads that are at least 50 bp (shorter read lengths should use Bowtie1). By default, Bowtie2 will perform a global end-to-end read alignment, which is best for quality-trimmed reads. However, it also has a local alignment mode, which will perform soft-clipping for the removal of poor quality bases or adapters from untrimmed reads. We will use this option since we did not trim our reads.</p>
+<blockquote>
+<p><em><strong>NOTE:</strong> Our reads are only 36 bp, so technically we should explore alignment with <a href="http://bio-bwa.sourceforge.net/">bwa</a> or Bowtie1 to see if it is better. However, since it is rare that you will have sequencing reads with less than 50 bp, we will show you how to perform alignment using Bowtie2.</em></p>
+</blockquote>
+<h3 id="creating-a-bowtie2-index">Creating a Bowtie2 index</h3>
+<p>To perform the Bowtie2 alignment, a genome index is required. The index is analagous to the index in the back of a book. By indexing the genome, we have organized it in a manner that now allows for efficient search and retrieval of matches of the query (sequence read) to the genome. <strong>We previously generated the genome indices for you</strong>, and they exist in the <code>reference_data</code> directory.</p>
+<p>However, if you needed to create a genome index yourself, you would use the following command:</p>
+<pre><code class="bash"># DO NOT RUN
+
+bowtie2-build &lt;path_to_reference_genome.fa&gt; &lt;prefix_to_name_indexes&gt;
+</code></pre>
+
+<blockquote>
+<p>A quick note on shared databases for human and other commonly used model organisms. The O2 cluster has a designated directory at <code>/n/groups/shared_databases/</code> in which there are files that can be accessed by any user. These files contain, but are not limited to, genome indices for various tools, reference sequences, tool specific data, and data from public databases, such as NCBI and PDB. So when using a tool that requires a reference of sorts, it is worth taking a quick look here because chances are it's already been taken care of for you. </p>
+<p><code>bash
+$ ls -l /n/groups/shared_databases/igenome/</code></p>
+</blockquote>
+<h3 id="aligning-reads-to-the-genome-with-bowtie2">Aligning reads to the genome with Bowtie2</h3>
+<p>Since we have our indices already created, we can get started with read alignment. Change directories to the <code>bowtie2</code> folder:</p>
+<pre><code class="bash">$ cd ~/chipseq/results/bowtie2
+</code></pre>
+
+<p>Now let's load the module. We can find out more on the module on O2:</p>
+<pre><code class="bash">$ module spider bowtie2
+</code></pre>
+
+<p>You will notice that before we load this module we also need to load the gcc compiler (as will be the case for many of the NGS analysis tools on O2. Always check <code>module spider</code> first.)</p>
+<pre><code class="bash">$ module load gcc/6.2.0 bowtie2/2.2.9
+</code></pre>
+
+<p>We will perform alignment on our single raw FASTQ file, <code>H1hesc_Input_Rep1_chr12.fastq</code>. Details on Bowtie2 and its functionality can be found in the <a href="http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml">user manual</a>; we encourage you to peruse through to get familiar with all available options.</p>
+<p>The basic options for aligning reads to the genome using Bowtie2 are:</p>
+<ul>
+<li><code>-p</code>: number of processors / cores</li>
+<li><code>-q</code>: reads are in FASTQ format</li>
+<li><code>--local</code>: local alignment feature to perform soft-clipping</li>
+<li><code>-x</code>: /path/to/genome_indices_directory</li>
+<li><code>-U</code>: /path/to/FASTQ_file</li>
+<li><code>-S</code>: /path/to/output/SAM_file</li>
+</ul>
+<pre><code class="bash">$ bowtie2 -p 2 -q --local \
+-x ~/chipseq/reference_data/chr12 \
+-U ~/chipseq/raw_data/H1hesc_Input_Rep1_chr12.fastq \
+-S ~/chipseq/results/bowtie2/H1hesc_Input_Rep1_chr12_aln_unsorted.sam
+</code></pre>
+
+<h2 id="alignment-file-format-sambam">Alignment file format: SAM/BAM</h2>
+<p>The output we requested from the Bowtie2 aligner is an unsorted SAM file, also known as <strong>Sequence Alignment Map format</strong>. The SAM file, is a <strong>tab-delimited text file</strong> that contains information for each individual read and its alignment to the genome. While we will go into some features of the SAM format, the paper by <a href="http://bioinformatics.oxfordjournals.org/content/25/16/2078.full">Heng Li et al</a> provides a lot more detail on the specification.</p>
+<p>The file begins with a <strong>header</strong>, which is optional. The header is used to describe source of data, reference sequence, method of alignment, etc., this will change depending on the aligner being used. Each section begins with character ‘@’ followed by <strong>a two-letter record type code</strong>.  These are followed by two-letter tags and values. Example of some common sections are provided below:</p>
+<pre><code>@HD  The header line
+VN: format version
+SO: Sorting order of alignments
+
+@SQ  Reference sequence dictionary
+SN: reference sequence name
+LN: reference sequence length
+SP: species
+
+@PG  Program
+PN: program name
+VN: program version
+</code></pre>
+
+<p>Following the header is the <strong>alignment section</strong>. Each line that follows corresponds to alignment information for a single read. Each alignment line has <strong>11 mandatory fields for essential mapping information</strong> and a variable number of other fields for aligner specific information. </p>
+<p><img src="../img/sam_bam.png" width="500"></p>
+<p>An example read mapping is displayed above. <em>Note that the example above spans two lines, but in the file it is a single line.</em> Let's go through the fields one at a time. First, you have the read name (<code>QNAME</code>), followed by a <code>FLAG</code> </p>
+<p>The <code>FLAG</code> value that is displayed can be translated into information about the mapping. </p>
+<table>
+<thead>
+<tr>
+<th align="right">Flag</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="right">1</td>
+<td align="center">read is mapped</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td align="center">read is mapped as part of a pair</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td align="center">read is unmapped</td>
+</tr>
+<tr>
+<td align="right">8</td>
+<td align="center">mate is unmapped</td>
+</tr>
+<tr>
+<td align="right">16</td>
+<td align="center">read reverse strand</td>
+</tr>
+<tr>
+<td align="right">32</td>
+<td align="center">mate reverse strand</td>
+</tr>
+<tr>
+<td align="right">64</td>
+<td align="center">first in pair</td>
+</tr>
+<tr>
+<td align="right">128</td>
+<td align="center">second in pair</td>
+</tr>
+<tr>
+<td align="right">256</td>
+<td align="center">not primary alignment</td>
+</tr>
+<tr>
+<td align="right">512</td>
+<td align="center">read fails platform/vendor quality checks</td>
+</tr>
+<tr>
+<td align="right">1024</td>
+<td align="center">read is PCR or optical duplicate</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>For a given alignment, each of these flags are either <strong>on or off</strong> indicating the condition is <strong>true or false</strong>. </li>
+<li>The <code>FLAG</code> is a combination of all of the individual flags (from the table above) that are true for the alignment </li>
+<li>The beauty of the flag values is that <strong>any combination of flags can only result in one sum</strong>.</li>
+</ul>
+<p><strong>There are tools that help you translate the bitwise flag, for example <a href="https://broadinstitute.github.io/picard/explain-flags.html">this one from Picard</a></strong></p>
+<p>Moving along the fields of the SAM file, we then have <code>RNAME</code> which is the reference sequence name. The example read is from chromosome 1 which explains why we see 'chr1'. <code>POS</code> refers to the 1-based leftmost position of the alignment. <code>MAPQ</code> is giving us the alignment quality, the scale of which will depend on the aligner being used. </p>
+<p><code>CIGAR</code> is a sequence of letters and numbers that represent the <em>edits or operations</em> required to match the read to the reference. The letters are operations that are used to indicate which bases align to the reference (i.e. match, mismatch, deletion, insertion), and the numbers indicate the associated base lengths for each 'operation'.</p>
+<table>
+<thead>
+<tr>
+<th align="right">Operation</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="right">M</td>
+<td align="center">sequence match or mismatch</td>
+</tr>
+<tr>
+<td align="right">I</td>
+<td align="center">insertion to the reference</td>
+</tr>
+<tr>
+<td align="right">D</td>
+<td align="center">deletion from reference</td>
+</tr>
+<tr>
+<td align="right">N</td>
+<td align="center">skipped region from the reference</td>
+</tr>
+</tbody>
+</table>
+<p>Now to the remaning fields in our SAM file:</p>
+<p><img src="../img/sam_bam3.png" width="500"></p>
+<p>The next three fields are more pertinent to paired-end data. <code>MRNM</code> is the mate reference name. <code>MPOS</code> is the mate position (1-based, leftmost). <code>ISIZE</code> is the inferred insert size.</p>
+<p>Finally, you have the data from the original FASTQ file stored for each read. That is the raw sequence (<code>SEQ</code>) and the associated quality values for each position in the read (<code>QUAL</code>).</p>
+<p>Let;'s take a quick peek at our SAM file that we just generated. Since it is just a text file, we can browse through it using <code>less</code>:</p>
+<pre><code class="bash">$ less H1hesc_Input_Rep1_chr12_aln_unsorted.sam
+</code></pre>
+
+<p><strong>Does the information you see line up with the fields we described above?</strong></p>
+<h2 id="filtering-reads">Filtering reads</h2>
+<p>An important issue with ChIP-seq data concerns the inclusion of multiple mapped reads (reads mapped to multiple loci on the reference genome). <strong>Allowing for multiple mapped reads increases the number of usable reads and the sensitivity of peak detection; however, the number of false positives may also increase</strong> <a href="https://www.ncbi.nlm.nih.gov/pubmed/21779159/">[1]</a>. Therefore we need to filter our alignment files to <strong>contain only uniquely mapping reads</strong> in order to increase confidence in site discovery and improve reproducibility. Since there is no parameter in Bowtie2 to keep only uniquely mapping reads, we will need to perform the following steps to generate alignment files containing only the uniquely mapping reads:</p>
+<ol>
+<li>Change alignment file format from SAM to BAM</li>
+<li>Sort BAM file by read coordinate locations</li>
+<li>Filter to keep only uniquely mapping reads (this will also remove any unmapped reads)</li>
+</ol>
+<h3 id="1-changing-file-format-from-sam-to-bam">1. Changing file format from SAM to BAM</h3>
+<p>While the SAM alignment file output by Bowtie2 is human readable, we need a BAM alignment file for downstream tools. Therefore, we will use <a href="http://samtools.github.io">Samtools</a> to convert the file formats.</p>
+<p>To use <code>samtools</code> we will need to load the module:</p>
+<pre><code class="bash">module load samtools/1.3.1
+</code></pre>
+
+<p>The command we will use is <code>samtools view</code> with the following parameters:</p>
+<ul>
+<li><code>-h</code>: include header in output</li>
+<li><code>-S</code>: input is in SAM format</li>
+<li><code>-b</code>: output BAM format</li>
+<li><code>-o</code>: /path/to/output/file</li>
+</ul>
+<pre><code class="bash">$ samtools view -h -S -b \
+-o H1hesc_Input_Rep1_chr12_aln_unsorted.bam \
+H1hesc_Input_Rep1_chr12_aln_unsorted.sam
+</code></pre>
+
+<p>You can find additional parameters for the samtools functions in the <a href="http://www.htslib.org/doc/samtools-1.2.html">manual</a>.</p>
+<h3 id="2-sorting-bam-files-by-genomic-coordinates">2. Sorting BAM files by genomic coordinates</h3>
+<p>Before we can filter to keep the uniquely mapping reads, we need to sort our BAM alignment files by genomic coordinates (instead of by name). To perform this sort, we will use <a href="http://lomereiter.github.io/sambamba/index.html">Sambamba</a>, which is a tool that quickly processes BAM and SAM files.</p>
+<p>The command we will use is <code>sambamba sort</code> with the following parameters:</p>
+<ul>
+<li><code>-t</code>: number of threads / cores</li>
+<li><code>-o</code>: /path/to/output/file</li>
+</ul>
+<pre><code class="bash">$ sambamba sort -t 2 \
+-o H1hesc_Input_Rep1_chr12_aln_sorted.bam \
+H1hesc_Input_Rep1_chr12_aln_unsorted.bam 
+</code></pre>
+
+<blockquote>
+<p><strong>NOTE: This tool is not available as a module on O2.</strong> You will only be able to use this as part of the tools available in the <code>bcbio</code> pipeline. In a previous lesson, you had added this to your $PATH by modifying your <code>.bashrc</code> file. <strong>If the command above does not work for you, run this line below:</strong></p>
+<p><code>export PATH=/n/app/bcbio/tools/bin:$PATH</code></p>
+</blockquote>
+<p>We could have also used <code>samtools</code> to perform the above sort, however using <code>sambamba</code> gives us dual functionality. List the contents of the directory -- what do you see? The advantage to using <code>sambamba</code> is that along with the newly sorted file, an index file is generated. If we used <code>samtools</code> this would have been a two-step process.</p>
+<h3 id="3-filtering-uniquely-mapping-reads">3. Filtering uniquely mapping reads</h3>
+<p>Finally, we can filter the uniquely mapped reads. We will use the <code>sambamba view</code> command with the following parameters:</p>
+<ul>
+<li><code>-t</code>: number of threads / cores</li>
+<li><code>-h</code>: print SAM header before reads</li>
+<li><code>-f</code>: format of output file (default is SAM)</li>
+<li><code>-F</code>: set <a href="https://github.com/lomereiter/sambamba/wiki/%5Bsambamba-view%5D-Filter-expression-syntax">custom filter</a> - we will be using the filter to remove multimappers and unmapped reads.</li>
+</ul>
+<pre><code class="bash">$ sambamba view -h -t 2 -f bam \
+-F &quot;[XS] == null and not unmapped &quot; \
+H1hesc_Input_Rep1_chr12_aln_sorted.bam &gt; H1hesc_Input_Rep1_chr12_aln.bam
+</code></pre>
+
+<p>We filtered out unmapped reads by specifying in the filter <code>not unmapped</code>. Also, among the reads that were aligned, we filtered out multimappers by specifying <code>[XS] == null</code>. 'XS' is a tag generated by Bowtie2 that gives an alignment score for the second-best alignment, and it is only present if the read is aligned and more than one alignment was found for the read.</p>
+<p>Now that the alignment files contain only uniquely mapping reads, we are ready to perform peak calling.</p>
+<blockquote>
+<p><em><strong>NOTE:</strong> After performing read alignment, it's useful to generate QC metrics for the alignment using tools such as <a href="http://multiqc.info">MultiQC</a> prior to moving on to the next steps of the analysis.</em></p>
+</blockquote>
+<hr />
+<p><em>This lesson has been developed by members of the teaching team at the <a href="http://bioinformatics.sph.harvard.edu/">Harvard Chan Bioinformatics Core (HBC)</a>. These are open access materials distributed under the terms of the <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution license</a> (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.</em></p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../02_QC_FASTQC/" title="Sequencing data QC using FastQC" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Sequencing data QC using FastQC
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../04_automation/" title="Automating generation of alignment files" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Automating generation of alignment files
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.a59e2a89.js"></script>
+      
+      <script>app.initialize({version:"0.17.4",url:{base:".."}})</script>
+      
+    
+    
+      
+    
+  </body>
+</html>

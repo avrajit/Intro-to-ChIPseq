@@ -1,0 +1,666 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+        <meta name="author" content=""">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-0.17.4, mkdocs-material-2.9.2">
+    
+    
+      
+        <title>"Peak calling with MACS2"</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.ba0fd1a6.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.6079476c.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="">
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+      <link rel="stylesheet" href="../extra.css">
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="white" data-md-color-accent="light-green">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#learning-objectives" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href=".." title="Introduction to ChIP-seq" class="md-header-nav__button md-logo">
+          
+            <img src="../images/dna-sequence-1600x800.jpg" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                Introduction to ChIP-seq
+              </span>
+              <span class="md-header-nav__topic">
+                Peak calling with MACS2
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <span class="md-nav__button md-logo">
+      
+        <img src="../images/dna-sequence-1600x800.jpg" width="48" height="48">
+      
+    </span>
+    Introduction to ChIP-seq
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../schedule/" title="Class schedule" class="md-nav__link">
+      Class schedule
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      Lessons
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Lessons
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../01_Intro_chipseq_data_organization/" title="Project Organization and Best Practices in Data Management" class="md-nav__link">
+      Project Organization and Best Practices in Data Management
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../02_QC_FASTQC/" title="Sequencing data QC using FastQC" class="md-nav__link">
+      Sequencing data QC using FastQC
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../03_align_and_filtering/" title="Alignment and filtering of reads" class="md-nav__link">
+      Alignment and filtering of reads
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../04_automation/" title="Automating generation of alignment files" class="md-nav__link">
+      Automating generation of alignment files
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+    <a href="./" title="Peak calling with MACS2" class="md-nav__link md-nav__link--active">
+      Peak calling with MACS2
+    </a>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../06_QC_cross_correlation/" title="Assessing ChIP quality using cross correlation" class="md-nav__link">
+      Assessing ChIP quality using cross correlation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../07_QC_quality_metrics/" title="Assessing Peak calls and ChIP quality using ChIPQC" class="md-nav__link">
+      Assessing Peak calls and ChIP quality using ChIPQC
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../08_handling-replicates/" title="Handling Replicates with Bedtools or IDR" class="md-nav__link">
+      Handling Replicates with Bedtools or IDR
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../09_data_visualization/" title="Visualization and exploration of ChIP-seq data" class="md-nav__link">
+      Visualization and exploration of ChIP-seq data
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../10_qualitative_assessment_IGV/" title="Qualitative assessment using IGV" class="md-nav__link">
+      Qualitative assessment using IGV
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../11_functional_analysis/" title="Functional analysis" class="md-nav__link">
+      Functional analysis
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <p>Contributors: Meeta Mistry, Radhika Khetani</p>
+<p>Approximate time: 80 minutes</p>
+<h2 id="learning-objectives">Learning Objectives</h2>
+<ul>
+<li>Describe the different components of the MACS2 peak calling algorithm</li>
+<li>Describe the parameters involved in running MACS2</li>
+<li>List and describe the output files from MACS2</li>
+</ul>
+<h1 id="peak-calling">Peak Calling</h1>
+<p>Peak calling, the next step in our workflow, is a computational method used to identify areas in the genome that have been enriched with aligned reads as a consequence of performing a ChIP-sequencing experiment. </p>
+<p><img src="../img/chip_workflow_june2017_step2.png" width="700"></p>
+<p>For ChIP-seq experiments, what we observe from the alignment files is a <strong>strand asymmetry with read densities on the +/- strand, centered around the binding site</strong>. The 5' ends of the selected fragments will form groups on the positive- and negative-strand. The distributions of these groups are then assessed using statistical measures and compared against background (input or mock IP samples) to determine if the site of enrichment is likely to be a real binding site.</p>
+<p><img src="../img/chip-fragments.png" width="300" align="middle"></p>
+<p>There are various tools that are available for peak calling. One of the more commonly used pack callers is MACS2, and we will demonstrate it in this session. <em>Note that in this Session the term 'tag' and sequence 'read' are used interchangeably.</em></p>
+<blockquote>
+<p><strong>NOTE:</strong> Our dataset is investigating two transcription factors and so our focus is on identifying short degenerate sequences that present as punctate binding sites. ChIP-seq analysis algorithms are specialized in identifying one of <strong>two types of enrichment</strong> (or have specific methods for each): <strong>broad peaks</strong> or broad domains (i.e. histone modifications that cover entire gene bodies) or <strong>narrow peaks</strong> (i.e. a transcription factor binding). Narrow peaks are easier to detect as we are looking for regions that have higher amplitude and are easier to distinguish from the background, compared to broad or dispersed marks. There are also 'mixed' binding profiles which can be hard for algorithms to discern. An example of this is the binding properties of PolII, which binds at promotor and across the length of the gene resulting in mixed signals (narrow and broad).</p>
+</blockquote>
+<h2 id="macs2">MACS2</h2>
+<p>A commonly used tool for identifying transcription factor binding sites is named <a href="https://github.com/taoliu/MACS">Model-based Analysis of ChIP-Seq (MACS)</a>. The <a href="http://genomebiology.biomedcentral.com/articles/10.1186/gb-2008-9-9-r137">MACS algorithm</a> captures the influence of genome complexity to evaluate the significance of enriched ChIP regions. Although it was developed for the detection of transcription factor binding sites it is also suited for larger regions.</p>
+<p>MACS improves the spatial resolution of binding sites through <strong>combining the information of both sequencing tag position and orientation.</strong> MACS can be easily used either for the ChIP sample alone, or along with a control sample which increases specificity of the peak calls. The MACS workflow is depicted below. In this lesson, we will describe the steps in more detail.</p>
+<p><img src="../img/macs_workflow.png" width="500"></p>
+<h3 id="removing-redundancy">Removing redundancy</h3>
+<p>MACS provides different options for dealing with <strong>duplicate tags</strong> at the exact same location, that is tags with the <strong>same coordination and the same strand</strong>. The default is to keep a single read at each location. The <code>auto</code> option, which is very commonly used, tells MACS to calculate the maximum tags at the exact same location based on binomal distribution using 1e-5 as the pvalue cutoff. An alternative is to set the <code>all</code> option, which keeps every tag. If an <code>integer</code> is specified, then at most that many tags will be kept at the same location. This redundancy is consistently applied for both the ChIP and input samples.</p>
+<blockquote>
+<p><strong>Why worry about duplicates?</strong>
+Reads with the same start position are considered duplicates. These duplicates can arise from experimental artifacts, but can also contribute to genuine ChIP-signal.</p>
+<ul>
+<li><strong>The bad kind of duplicates:</strong> If initial starting material is low this can lead to overamplification of this material before sequencing. Any biases in PCR will compound this problem and can lead to artificially enriched regions. Also blacklisted (repeat) regions with ultra high signal will also be high in duplicates. Masking these regions prior to analysis can help remove this problem.</li>
+<li><strong>The good kind of duplicates:</strong> Duplicates will also exist within highly efficient (or even inefficient ChIP) when deeply sequenced. Removal of these duplicates can lead to a saturation and so underestimation of the ChIP signal.</li>
+</ul>
+<p><strong>The take-home:</strong> Consider your enrichment efficiency and sequencing depth. But, because we cannot distinguish between the good and the bad, best practice is to remove duplicates prior to peak calling.  Retain duplicates for differential binding analysis. Also, if you are expecting binding in repetitive regions keep duplicates and multiple mappers.</p>
+</blockquote>
+<h3 id="modeling-the-shift-size">Modeling the shift size</h3>
+<p>The tag density around a true binding site should show a <strong>bimodal enrichment pattern</strong> (or paired peaks). MACS takes advantage of this bimodal pattern to empirically model the shifting size to better locate the precise binding sites.</p>
+<p>To find paired peaks to <strong>build the model</strong>, MACS first scans the whole dataset searching for highly significant enriched regions. <em>This is done only using the ChIP sample!</em> Given a sonication size (<code>bandwidth</code>) and a high-confidence fold-enrichment (<code>mfold</code>), MACS slides two <code>bandwidth</code> windows across the genome to find regions with <strong>tags more than <code>mfold</code> enriched relative to a random tag genome distribution</strong>. </p>
+<p><img src="../img/model_shift.png" width="500"></p>
+<p>MACS randomly <strong>samples 1,000 of these high-quality peaks</strong>, separates their Watson and Crick tags, and aligns them by the midpoint between their Watson and Crick tag centers. The <strong>distance between the modes of the Watson and Crick peaks in the alignment is defined as 'd'</strong> and represents the estimated fragment length. MACS shifts all the tags by d/2 toward the 3' ends to the most likely protein-DNA interaction sites.</p>
+<h3 id="scaling-libraries">Scaling libraries</h3>
+<p>For experiments in which sequence depth differs between input and treatment samples, MACS linearly scales the <strong>total control tag count to be the same as the total ChIP tag count</strong>. The default behaviour is for the larger sample to be scaled down.</p>
+<h3 id="effective-genome-length">Effective genome length</h3>
+<p>To calculate λBG from tag count, MAC2 requires the <strong>effective genome size</strong> or the size of the genome that is mappable. Mappability is related to the uniqueness of the k-mers at a  particular position the genome. Low-complexity and repetitive regions have low uniqueness, which means low mappability. Therefore we need to provide the effective genome length to <strong>correct for the loss of true signals in low-mappable regions</strong>.</p>
+<p><img src="../img/mappable.png" width="300"></p>
+<p>The mappability or uniqueness influences the average mapped depth (i.e if the effective genome length is small, the proportion of reads that map will be small). As shown in the table below <strong>mappability improves with increased read length</strong>. When low-mappable regions (e.g. a ratio  &lt;  0.25) are of interest, it might be better to include multiple mapped reads or use paired-end reads.</p>
+<p><img src="../img/map_table.png" width="500"></p>
+<h3 id="peak-detection">Peak detection</h3>
+<p>For ChIP-Seq experiments, tag distribution along the genome can be modeled by a Poisson distribution. After MACS shifts every tag, it then slides 2d windows across the genome to find candidate peaks with a significant tag enrichment (default is p &lt; 10e-5). This is a Poisson distribution p-value based on λ. The Poisson is a one parameter model, where the parameter <strong>λ is the expected number of reads in that window</strong>.</p>
+<p><img src="../img/peak_detection.png" width="300"></p>
+<p>Instead of using a uniform λ estimated from the whole genome, MACS uses a dynamic parameter, λlocal, defined for each candidate peak. The lambda parameter is estimated from the control sample and is deduced by <strong>taking the maximum value across various window sizes:</strong> </p>
+<p><strong>λlocal = max(λBG, λ1k, λ5k, λ10k).</strong> </p>
+<p>In this way lambda captures the influence of local biases, and is <strong>robust against occasional low tag counts at small local regions</strong>. Possible sources for these biases include local chromatin structure, DNA amplification and sequencing bias, and genome copy number variation.</p>
+<p><img src="../img/lambda.png" width="300"></p>
+<p>Overlapping enriched peaks are merged, and each tag position is extended 'd' bases from its center. The location with the highest fragment pileup, hereafter referred to as the summit, is predicted as the precise binding location. The ratio between the ChIP-Seq tag count and λlocal is reported as the fold enrichment.</p>
+<h3 id="estimation-of-false-discovery-rate">Estimation of false discovery rate</h3>
+<p>Each peak is considered an independent test and thus, when we encounter thousands of significant peaks detected in a sample we have a multiple testing problem. In MACSv1.4, the FDR was determined empirically by exchanging the ChIP and control samples. However, in MACS2, p-values are now corrected for multiple comparison using the <strong>Benjamini-Hochberg correction</strong>.</p>
+<h2 id="running-macs2">Running MACS2</h2>
+<p>We will be using the newest version of this tool, MACS2. The underlying algorithm for peak calling remains the same as before, but it comes with some enhancements in functionality. </p>
+<h3 id="setting-up">Setting up</h3>
+<p>To run MACS2, we will first start an interactive session using 1 core (do this only if you don't already have one) and load the macs2 library:</p>
+<pre><code class="bash">$ srun --pty -p short -t 0-12:00 --mem 8G --reservation=HBC bash
+
+$ module load gcc/6.2.0  python/2.7.12 macs2/2.1.1.20160309
+</code></pre>
+
+<p>We will also need to create a directory for the output generated from MACS2:</p>
+<pre><code class="bash">$ mkdir -p ~/chipseq/results/macs2
+</code></pre>
+
+<p>Now change directories to the <code>results</code> folder:</p>
+<pre><code class="bash">$ cd ~/chipseq/results/
+</code></pre>
+
+<blockquote>
+<p><strong>NOTE:</strong> If your automation script was successful, you should have alignment information for <strong>all 6 files</strong>. However, if you do not have these BAM files then you can copy them over using the command below:</p>
+<p><code>$ cp /n/groups/hbctraining/chip-seq/bowtie2/*.bam ~/chipseq/results/bowtie2/</code></p>
+</blockquote>
+<h3 id="macs2-parameters">MACS2 parameters</h3>
+<p>There are seven <a href="https://github.com/taoliu/MACS#usage-of-macs2">major functions</a> available in MACS2 serving as sub-commands. We will only cover <code>callpeak</code> in this lesson, but you can use <code>macs2 COMMAND -h</code> to find out more, if you are interested.</p>
+<p><code>callpeak</code> is the main function in MACS2 and can be invoked by typing <code>macs2 callpeak</code>. If you type this command without parameters, you will see a full description of commandline options. Here is a shorter list of the commonly used ones: </p>
+<p><strong>Input file options</strong></p>
+<ul>
+<li><code>-t</code>: The IP data file (this is the only REQUIRED parameter for MACS)</li>
+<li><code>-c</code>: The control or mock data file</li>
+<li><code>-f</code>: format of input file; Default is "AUTO" which will allow MACS to decide the format automatically.</li>
+<li><code>-g</code>: mappable genome size which is defined as the genome size which can be sequenced; some precompiled values provided.</li>
+</ul>
+<p><strong>Output arguments</strong></p>
+<ul>
+<li><code>--outdir</code>: MACS2 will save all output files into speficied folder for this option</li>
+<li><code>-n</code>: The prefix string for output files</li>
+<li><code>-B/--bdg</code>: store the fragment pileup, control lambda, -log10pvalue and -log10qvalue scores in bedGraph files</li>
+</ul>
+<p><strong>Shifting model arguments</strong></p>
+<ul>
+<li><code>-s</code>: size of sequencing tags. Default, MACS will use the first 10 sequences from your input treatment file to determine it</li>
+<li><code>--bw</code>: The bandwidth which is used to scan the genome ONLY for model building. Can be set to the expected sonication fragment size.</li>
+<li><code>--mfold</code>: upper and lower limit for model building</li>
+</ul>
+<p><strong>Peak calling arguments</strong></p>
+<ul>
+<li><code>-q</code>: q-value (minimum FDR) cutoff</li>
+<li><code>-p</code>: p-value cutoff (instead of q-value cutoff)</li>
+<li><code>--nolambda</code>: do not consider the local bias/lambda at peak candidate regions</li>
+<li><code>--broad</code>: broad peak calling</li>
+</ul>
+<blockquote>
+<p><strong>NOTE:</strong> Relaxing the q-value does not behave as expected in this case since it is partially tied to peak widths. Ideally, if you relaxed the thresholds, you would simply get more peaks but with MACS2 relaxing thresholds also results in wider peaks.</p>
+</blockquote>
+<p>Now that we have a feel for the different ways we can tweak our command, let's set up the command for our run on Nanog-rep1:</p>
+<pre><code>$ macs2 callpeak -t bowtie2/H1hesc_Nanog_Rep1_aln.bam \
+    -c bowtie2/H1hesc_Input_Rep1_aln.bam \
+    -f BAM -g 1.3e+8 \
+    -n Nanog-rep1 \
+    --outdir macs2
+</code></pre>
+
+<p>The tool is quite verbose so you should see lines of text being printed to the terminal, describing each step that is being carried out. If that runs successfully, go ahead and <strong>re-run the same command but this time let's capture that information into a log file using <code>2&gt;</code> to re-direct the stadard error to file</strong>:</p>
+<pre><code>$ macs2 callpeak -t bowtie2/H1hesc_Nanog_Rep1_aln.bam \
+    -c bowtie2/H1hesc_Input_Rep1_aln.bam \
+    -f BAM -g 1.3e+8 \
+    -n Nanog-rep1 \
+    --outdir macs2 2&gt; macs2/Nanog-rep1-macs2.log
+</code></pre>
+
+<p>Ok, now let's do the same peak calling for the rest of our samples:</p>
+<pre><code class="bash">macs2 callpeak -t bowtie2/H1hesc_Nanog_Rep2_aln.bam -c bowtie2/H1hesc_Input_Rep2_aln.bam -f BAM -g 1.3e+8 --outdir macs2 -n Nanog-rep2 2&gt; macs2/Nanog-rep2-macs2.log
+
+macs2 callpeak -t bowtie2/H1hesc_Pou5f1_Rep1_aln.bam -c bowtie2/H1hesc_Input_Rep1_aln.bam -f BAM -g 1.3e+8 --outdir macs2 -n Pou5f1-rep1 2&gt; macs2/Pou5f1-rep1-macs2.log
+
+macs2 callpeak -t bowtie2/H1hesc_Pou5f1_Rep2_aln.bam -c bowtie2/H1hesc_Input_Rep2_aln.bam -f BAM -g 1.3e+8 --outdir macs2 -n Pou5f1-rep2 2&gt; macs2/Pou5f1-rep2-macs2.log
+
+</code></pre>
+
+<h2 id="macs2-output-files">MACS2 Output files</h2>
+<h3 id="file-formats">File formats</h3>
+<p>Before we start exploring the output of MACS2, we'll briefly talk about the new file formats you will encounter.</p>
+<p><strong>narrowPeak:</strong></p>
+<p>A narrowPeak (.narrowPeak) file is used by the ENCODE project to provide called peaks of signal enrichment based on pooled, normalized (interpreted) data. It is a BED 6+4 format, which means <strong>the first 6 columns of a standard BED file  with 4 additional fields</strong>:</p>
+<ol>
+<li>chromosome</li>
+<li>start coordinate</li>
+<li>end coordinate</li>
+<li>name</li>
+<li>score</li>
+<li>strand</li>
+<li>signalValue - Measurement of overall enrichment for the region</li>
+<li>pValue - Statistical significance (-log10)</li>
+<li>qValue - Statistical significance using false discovery rate (-log10)</li>
+<li>peak - Point-source called for this peak; 0-based offset from chromStart</li>
+</ol>
+<p><strong>WIG format:</strong></p>
+<p>Wiggle format (WIG) allows the display of continuous-valued data in a track format. Wiggle format is line-oriented. It is composed of declaration lines and data lines, and require a separate wiggle track definition line. There are two options for formatting wiggle data: variableStep and fixedStep. These formats were developed to allow the file to be written as compactly as possible.</p>
+<p><strong>BedGraph format:</strong></p>
+<p>The BedGraph format also allows display of continuous-valued data in track format. This display type is useful for probability scores and transcriptome data. This track type is similar to the wiggle (WIG) format, but unlike the wiggle format, data exported in the bedGraph format are preserved in their original state. For the purposes of visualization, these can be interchangeable.</p>
+<h3 id="macs2-output-files_1">MACS2 output files</h3>
+<pre><code>$ cd macs2/
+
+$ ls -lh
+</code></pre>
+<p>Let's first move the log files to the <code>log</code> directory:</p>
+<pre><code>$ mv *.log ../../logs/
+</code></pre>
+<p>Now, there should be 6 files output to the results directory for each of the 4 samples, so a total of 24 files:</p>
+<ul>
+<li><code>_peaks.narrowPeak</code>: BED6+4 format file which contains the peak locations together with peak summit, pvalue and qvalue</li>
+<li><code>_peaks.xls</code>: a tabular file which contains information about called peaks. Additional information includes pileup and fold enrichment</li>
+<li><code>_summits.bed</code>: peak summits locations for every peak. To find the motifs at the binding sites, this file is recommended</li>
+<li><code>_model.R</code>: an R script which you can use to produce a PDF image about the model based on your data and cross-correlation plot</li>
+<li><code>_control_lambda.bdg</code>: bedGraph format for input sample</li>
+<li><code>_treat_pileup.bdg</code>: bedGraph format for treatment sample</li>
+</ul>
+<p>Let's first obtain a summary of how many peaks were called in each sample. We can do this by counting the lines in the <code>.narrowPeak</code> files:</p>
+<pre><code>$ wc -l *.narrowPeak
+</code></pre>
+<p>We can also generate plots using the R script file that was output by MACS2. There is a <code>_model.R</code> script in the directory. Let's load the R module and run the R script in the command line using the <code>Rscript</code> command as demonstrated below:</p>
+<pre><code>$ module load gcc/6.2.0 R/3.4.1
+
+$ Rscript Nanog-rep1_model.r
+</code></pre>
+<blockquote>
+<p><strong>NOTE:</strong> We need to load the <code>gcc/6.2.0</code> before loading R. You can find out which modules need to be loaded first by using module spider R/3.4.1` </p>
+</blockquote>
+<p>Now you should see a pdf file in your current directory by the same name. Create the plots for each of the samples and move them over to your laptop using <code>Filezilla</code>. </p>
+<p>Open up the pdf file for Nanog-rep1. The first plot illustrates <strong>the distance between the modes from which the shift size was determined</strong>. </p>
+<p><img src="../img/model-macs.png" width="400"></p>
+<p>The second plot is the  <strong>cross-correlation plot</strong>. This is a graphical representation of the Pearson correlation of positive- and negative- strand tag densities, shifting the strands relative to each other by increasing distance. We will talk about this in more detail in the next lesson.</p>
+<blockquote>
+<p><strong>NOTE:</strong> <a href="http://www.nature.com.ezp-prod1.hul.harvard.edu/nbt/journal/v26/n12/full/nbt.1508.html">SPP</a> is another very commonly used tool for <em>narrow</em> peak calling. While we will not be going through the steps for this peak caller in this workshop, we do have <a href="https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/blob/may2017/sessionV/lessons/peak_calling_spp.md">a lesson on SPP</a> that we encourage you to browse through if you are interested in learning more.</p>
+</blockquote>
+<hr />
+<p><em>This lesson has been developed by members of the teaching team at the <a href="http://bioinformatics.sph.harvard.edu/">Harvard Chan Bioinformatics Core (HBC)</a>. These are open access materials distributed under the terms of the <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution license</a> (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.</em></p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../04_automation/" title="Automating generation of alignment files" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Automating generation of alignment files
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../06_QC_cross_correlation/" title="Assessing ChIP quality using cross correlation" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Assessing ChIP quality using cross correlation
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.a59e2a89.js"></script>
+      
+      <script>app.initialize({version:"0.17.4",url:{base:".."}})</script>
+      
+    
+    
+      
+    
+  </body>
+</html>
